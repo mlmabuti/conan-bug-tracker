@@ -1,7 +1,6 @@
 import {
     Box,
     Button,
-    Card,
     Table,
     TableBody,
     TableCell,
@@ -11,24 +10,8 @@ import {
     Typography
 } from "@mui/material";
 
-export const ProjectsList = () => {
-    const projects = [
-        {
-            title: "PiedPiper",
-            author: "Richard Hendricks"
-        },
-        {
-            title: "Yet-Another-JS-Framework",
-            author: "Bertram Gilfoyle"
-        },
-        {
-            title: "Bitcoin Mobile Miner",
-            author: "Jared Dunn"
-        },
-    ]
+export const ProjectsTable = (props) => {
     return (
-    <Card sx={{p:4, m:6}} elevation={2}>
-        <Typography variant="h4" sx={{mb:3}}>Projects</Typography>
         <TableContainer component={Box}>
             <Table>
                 <TableHead>
@@ -47,10 +30,12 @@ export const ProjectsList = () => {
                 </TableHead>
 
                 <TableBody>
-                    {projects.map( (project) =>
+                    {props.projects.map( (project) =>
                         <TableRow>
                             <TableCell>
-                                <Button variant="text" color="info">
+                                <Button variant="text" color="info" onClick={
+                                    () => props.chooseProject(project)
+                                }>
                                     {project.title}
                                 </Button>
                             </TableCell>
@@ -61,11 +46,9 @@ export const ProjectsList = () => {
                             </TableCell>
                         </TableRow>
                     )
-
                     }
                 </TableBody>
             </Table>
         </TableContainer>
-    </Card>
     )
 }

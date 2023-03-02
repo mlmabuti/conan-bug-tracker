@@ -9,8 +9,7 @@ export const Auth = (props) => {
         <Container maxWidth="sm">
             <Paper sx={{p: 6, mt: "25%"}} elevation={2}>
                 <Stack spacing={2}>
-
-                    <Typography variant="h3" sx={{mb: "12px"}} > Login </Typography>
+                    <Typography variant="h3" sx={{mb: "12px"}} alignSelf="center" > Login </Typography>
                     <TextField type="email" label="Email" ></TextField>
                     <TextField type="password" label="Password" ></TextField>
 

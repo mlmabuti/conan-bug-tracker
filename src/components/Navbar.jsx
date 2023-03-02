@@ -1,4 +1,4 @@
-import {Button, Container, Link, Stack, Typography} from "@mui/material";
+import {Button, Link, Stack, Typography} from "@mui/material";
 
 
 export const Navbar = (props) => {
@@ -8,7 +8,7 @@ export const Navbar = (props) => {
 
     return (
         <Stack
-            sx={{py: 2, borderBottom:"2px solid black" }}
+            sx={{py: 2, borderBottom:"1px solid dimgray" }}
             direction="row"
             justifyContent="space-around"
             alignItems="center"
@@ -20,7 +20,7 @@ export const Navbar = (props) => {
 
             <Stack direction="row" alignItems="center" spacing={4}>
                 <Link>Documentation</Link>
-                <Button variant="outlined" color="warning" onClick={logout}>
+                <Button variant="outlined" color="error" onClick={logout}>
                     Logout
                 </Button>
             </Stack>
