@@ -5,13 +5,15 @@ import {Navbar} from "./components/Navbar.jsx";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [colorMode, setColorMode] = useState('dark')
+
+    const darkTheme = createTheme({
+        palette: {
+            mode: colorMode,
+        },
+    });
 
   return (
       <>
@@ -19,7 +21,7 @@ function App() {
               <CssBaseline />
               {loggedIn ?
                   <>
-                  <Navbar setLoggedIn={setLoggedIn}/>
+                  <Navbar setLoggedIn={setLoggedIn} setColorMode={setColorMode} colorMode={colorMode}/>
                   <Dashboard />
                   </>
                   :
