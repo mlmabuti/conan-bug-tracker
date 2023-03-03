@@ -36,7 +36,7 @@ export const NewTicketFormModal = () => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h5" component="h2" sx={{my: 2}}>
-                        Create New Project
+                        Create New Ticket
                     </Typography>
 
                     <TextField fullWidth required label="Ticket Name" sx={{mt: 1}}/>
