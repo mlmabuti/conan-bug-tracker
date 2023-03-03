@@ -1,7 +1,6 @@
-import {Button, Container, Stack, Typography, Paper, ButtonGroup, Popover} from "@mui/material";
+import {Button, Container, Stack, Typography, Paper, ButtonGroup } from "@mui/material";
 import {TicketsTable} from "../components/TicketsTable"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {PeopleAlt} from "@mui/icons-material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {useState} from "react";
 import {MembersPopover} from "../components/MembersPopover.jsx";
@@ -30,7 +29,7 @@ export const Projects = (props) => {
                             }>
                                 {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                             </Button>
-                            <ButtonGroup variant="outlined">
+                            <ButtonGroup variant="contained">
                                 <Button color="primary">
                                     <AddCircleIcon/>
                                 </Button>

@@ -43,7 +43,7 @@ export const TicketsTable = (props) => {
                             ?
 
                             resolvedTickets.map((ticket) =>
-                                <TableRow>
+                                <TableRow key={ticket.ticketTitle}>
                                     <TableCell>
                                         <DescriptionModal ticket={ticket}/>
                                     </TableCell>

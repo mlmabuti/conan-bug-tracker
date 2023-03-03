@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {Stack} from "@mui/material";
+import {ButtonGroup, Stack} from "@mui/material";
 
 const style = {
     position: 'absolute',
@@ -51,15 +51,24 @@ export const DescriptionModal = (props) => {
                         <Typography>
                             {"Label: " + props.ticket.label}
                         </Typography>
+                        <Typography>
+                            {"Status: " + props.ticket.status}
+                        </Typography>
+
                         {
                             props.ticket.status !== 'Resolved' ?
                                 <>
                                     <Typography>
                                         {"Due: " + props.ticket.due}
                                     </Typography>
-                                    <Button variant="contained" sx={{mt: 2}}>
-                                        Mark as resolved
-                                    </Button>
+                                    <ButtonGroup orientation="vertical">
+                                        <Button variant="contained" color="success" sx={{mt: 2}}>
+                                            Mark as resolved
+                                        </Button>
+                                        <Button variant="contained" color="warning" sx={{mt: 2}}>
+                                            Delete Ticket
+                                        </Button>
+                                    </ButtonGroup>
                                 </>
                                 :
                                 false
