@@ -52,7 +52,7 @@ export const DescriptionModal = (props) => {
                             {"Label: " + props.ticket.label}
                         </Typography>
                         <Typography>
-                            {"Status: " + props.ticket.status}
+                                {"Status: " + props.ticket.status}
                         </Typography>
 
                         {
@@ -65,7 +65,7 @@ export const DescriptionModal = (props) => {
                                         <Button variant="contained" color="success" sx={{mt: 2}}>
                                             Mark as resolved
                                         </Button>
-                                        <Button variant="contained" color="warning" sx={{mt: 2}}>
+                                        <Button variant="outlined" color="error" sx={{mt: 2}}>
                                             Delete Ticket
                                         </Button>
                                     </ButtonGroup>

@@ -4,8 +4,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {useState} from "react";
 import {MembersPopover} from "../components/MembersPopover.jsx";
+import {NewTicketFormModal} from "../components/NewTicketFormModal.jsx";
 
-export const Projects = (props) => {
+export const Project = (props) => {
     const [showResolved, setShowResolved] = useState(false);
     return (
         <>
@@ -30,9 +31,8 @@ export const Projects = (props) => {
                                 {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                             </Button>
                             <ButtonGroup variant="contained">
-                                <Button color="primary">
-                                    <AddCircleIcon/>
-                                </Button>
+
+                                <NewTicketFormModal/>
 
                                 <MembersPopover members={props.project.members}/>
 
