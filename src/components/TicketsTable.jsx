@@ -1,6 +1,5 @@
 import {
     Paper,
-    Button,
     Table,
     TableBody,
     TableCell,
@@ -10,7 +9,11 @@ import {
     Typography
 } from "@mui/material";
 
+import {DescriptionModal} from "./DescriptionModal.jsx";
+
 export const TicketsTable = (props) => {
+    const resolvedTickets = props.project.tickets.filter(ticket => ticket.status === 'Resolved');
+    const unresolvedTickets = props.project.tickets.filter(ticket => ticket.status !== 'Resolved')
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -28,7 +31,7 @@ export const TicketsTable = (props) => {
                         </TableCell>
                         <TableCell>
                             <Typography variant="h6">
-                                Author
+                                Assignee
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -36,19 +39,37 @@ export const TicketsTable = (props) => {
 
                 <TableBody>
                     {
-                        props.project.tickets.map( (ticket) =>
-                        <TableRow>
-                            <TableCell>
-                                <Button variant="text" color="info">{ticket.ticketTitle}</Button>
-                            </TableCell>
-                            <TableCell>
-                                <Typography>{ticket.priority}</Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography>{ticket.author}</Typography>
-                            </TableCell>
-                        </TableRow>
-                        )
+                        props.showResolved
+                      ?
+
+                            resolvedTickets.map( (ticket) =>
+                                <TableRow>
+                                    <TableCell>
+                                        <DescriptionModal ticket={ticket}/>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography>{ticket.priority}</Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography>{ticket.assignee}</Typography>
+                                    </TableCell>
+                                </TableRow>
+                            )
+                            :
+
+                            unresolvedTickets.map( (ticket) =>
+                                <TableRow key={ticket.ticketTitle}>
+                                    <TableCell>
+                                        <DescriptionModal ticket={ticket}/>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography>{ticket.priority}</Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography>{ticket.assignee}</Typography>
+                                    </TableCell>
+                                </TableRow>
+                            )
                     }
                 </TableBody>
             </Table>

@@ -1,10 +1,12 @@
-import {Button, Container, Stack, Typography, Paper, Tab, Tabs, ButtonGroup} from "@mui/material";
+import {Button, Container, Stack, Typography, Paper, ButtonGroup} from "@mui/material";
 import {TicketsTable} from "../components/TicketsTable"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {PeopleAlt} from "@mui/icons-material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DoneIcon from "@mui/icons-material/Done";
+import {useState} from "react";
 export const Projects = (props) => {
+    const [showResolved, setShowResolved] = useState(false);
+
     return (
         <>
             <Container maxWidth="lg">
@@ -21,9 +23,11 @@ export const Projects = (props) => {
                         <Stack
                             direction="row"
                         spacing={2}>
-                            <Button color="success" variant="outlined">
-                                <DoneIcon/>
-                                Resolved
+                            <Button color="primary" variant="text" onClick={() =>
+                                showResolved ? setShowResolved(false) : setShowResolved(true)
+
+                            }>
+                                {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                             </Button>
                             <ButtonGroup variant="outlined">
                                 <Button color="primary" >
@@ -39,7 +43,9 @@ export const Projects = (props) => {
                             </ButtonGroup>
                         </Stack>
                     </Stack>
-                <TicketsTable project={props.project}/>
+
+                    <TicketsTable project={props.project} showResolved={showResolved}/>
+
                 </Paper>
             </Container>
         </>

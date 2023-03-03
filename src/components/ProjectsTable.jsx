@@ -31,7 +31,7 @@ export const ProjectsTable = (props) => {
 
                 <TableBody>
                     {props.projects.map( (project) =>
-                        <TableRow>
+                        <TableRow key={project.title}>
                             <TableCell>
                                 <Button variant="text" color="info" onClick={
                                     () => props.chooseProject(project)
