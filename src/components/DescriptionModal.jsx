@@ -52,7 +52,7 @@ export const DescriptionModal = (props) => {
                             {"Label: " + props.ticket.label}
                         </Typography>
                         <Typography>
-                                {"Status: " + props.ticket.status}
+                            {"Status: " + props.ticket.status}
                         </Typography>
 
                         {

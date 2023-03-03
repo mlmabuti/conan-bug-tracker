@@ -38,8 +38,8 @@ export const NewProjectFormModal = () => {
                         Create New Project
                     </Typography>
                     <TextField required fullWidth label="Project Title" sx={{my: 2}}/>
-                    <Button fullWidth variant="contained" color="primary" onClick={()=>
-                    handleClose()
+                    <Button fullWidth variant="contained" color="primary" onClick={() =>
+                        handleClose()
                     }>
                         Submit
                     </Button>

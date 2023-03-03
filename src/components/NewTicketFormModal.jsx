@@ -9,7 +9,7 @@ import {TextField} from "@mui/material";
 const style = {
     position: 'absolute',
     width: '30%',
-    top: '35%',
+    top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
@@ -35,18 +35,18 @@ export const NewTicketFormModal = () => {
                 aria-labelledby="modal-modal-title"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h5" component="h2" sx={{my:2}}>
+                    <Typography id="modal-modal-title" variant="h5" component="h2" sx={{my: 2}}>
                         Create New Project
                     </Typography>
 
                     <TextField fullWidth required label="Ticket Name" sx={{mt: 1}}/>
-                    <TextField fullWidth required multiline rows={3} label="Description" sx={{mt: 1}} />
-                    <TextField fullWidth required label="Assignee" sx={{mt: 1}} />
-                    <TextField fullWidth required label="Priority" sx={{mt: 1}} />
-                    <TextField fullWidth required label="Label" sx={{mt: 1}} />
-                    <TextField fullWidth required label="Due Date" sx={{mt: 1}} />
+                    <TextField fullWidth required multiline rows={3} label="Description" sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Assignee" sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Priority" sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Label" sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Due Date" sx={{mt: 1}}/>
 
-                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}} onClick={()=>
+                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}} onClick={() =>
                         handleClose()
                     }>
                         Submit

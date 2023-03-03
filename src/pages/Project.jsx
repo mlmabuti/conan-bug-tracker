@@ -1,4 +1,4 @@
-import {Button, Container, Stack, Typography, Paper, ButtonGroup } from "@mui/material";
+import {Button, Container, Stack, Typography, Paper, ButtonGroup} from "@mui/material";
 import {TicketsTable} from "../components/TicketsTable"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
