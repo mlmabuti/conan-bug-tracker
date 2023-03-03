@@ -17,7 +17,7 @@ export const ProjectsTable = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>
-                            <Typography variant="h6" sx={{px:1}}>
+                            <Typography variant="h6" sx={{px: 1}}>
                                 Title
                             </Typography>
                         </TableCell>
@@ -30,7 +30,7 @@ export const ProjectsTable = (props) => {
                 </TableHead>
 
                 <TableBody>
-                    {props.projects.map( (project) =>
+                    {props.projects.map((project) =>
                         <TableRow key={project.title}>
                             <TableCell>
                                 <Button variant="text" color="info" onClick={

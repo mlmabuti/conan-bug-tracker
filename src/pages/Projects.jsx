@@ -1,20 +1,21 @@
-import {Button, Container, Stack, Typography, Paper, ButtonGroup} from "@mui/material";
+import {Button, Container, Stack, Typography, Paper, ButtonGroup, Popover} from "@mui/material";
 import {TicketsTable} from "../components/TicketsTable"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {PeopleAlt} from "@mui/icons-material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {useState} from "react";
+import {MembersPopover} from "../components/MembersPopover.jsx";
+
 export const Projects = (props) => {
     const [showResolved, setShowResolved] = useState(false);
-
     return (
         <>
             <Container maxWidth="lg">
-                    <Paper sx={{p:4, m:6}} >
+                <Paper sx={{p: 4, m: 6}}>
                     <Stack
-                        sx={{mb:3}}
+                        sx={{mb: 3}}
                         direction="row"
-                    justifyContent="space-between"
+                        justifyContent="space-between"
                     >
                         <Typography variant="h4">
                             {props.project.title}
@@ -22,7 +23,7 @@ export const Projects = (props) => {
 
                         <Stack
                             direction="row"
-                        spacing={2}>
+                            spacing={2}>
                             <Button color="primary" variant="text" onClick={() =>
                                 showResolved ? setShowResolved(false) : setShowResolved(true)
 
@@ -30,14 +31,14 @@ export const Projects = (props) => {
                                 {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                             </Button>
                             <ButtonGroup variant="outlined">
-                                <Button color="primary" >
+                                <Button color="primary">
                                     <AddCircleIcon/>
                                 </Button>
-                                <Button color="info" >
-                                    <PeopleAlt/>
-                                </Button>
+
+                                <MembersPopover members={props.project.members}/>
+
                                 <Button color="warning" onClick={() =>
-                                props.chooseProject(null)}>
+                                    props.chooseProject(null)}>
                                     <ArrowBackIcon/>
                                 </Button>
                             </ButtonGroup>

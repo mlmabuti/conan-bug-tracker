@@ -1,17 +1,16 @@
-import { Button, Container, Link, Paper, Stack, TextField, Typography} from "@mui/material";
+import {Button, Container, Link, Paper, Stack, TextField, Typography} from "@mui/material";
 
 export const Auth = (props) => {
-    const login = () =>
-    {
+    const login = () => {
         props.setLoggedIn(true)
     }
     return (
         <Container maxWidth="sm">
             <Paper sx={{p: 6, mt: "25%"}} elevation={2}>
                 <Stack spacing={2}>
-                    <Typography variant="h3" sx={{mb: "12px"}} alignSelf="center" > Login </Typography>
-                    <TextField type="email" label="Email" ></TextField>
-                    <TextField type="password" label="Password" ></TextField>
+                    <Typography variant="h3" sx={{mb: "12px"}} alignSelf="center"> Login </Typography>
+                    <TextField type="email" label="Email"></TextField>
+                    <TextField type="password" label="Password"></TextField>
 
                     <Stack spacing={1}>
                         <Button variant="contained" onClick={login}>Login</Button>

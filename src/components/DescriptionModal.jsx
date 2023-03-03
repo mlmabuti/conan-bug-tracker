@@ -34,36 +34,36 @@ export const DescriptionModal = (props) => {
                     <Typography variant="h5" component="h2">
                         {props.ticket.ticketTitle}
                     </Typography>
-                    <Typography sx={{ my: 2}}>
+                    <Typography sx={{my: 2}}>
                         {props.ticket.description}
                     </Typography>
                     <hr/>
                     <Stack spacing={1}>
-                    <Typography >
-                        {"Ticket Author: " + props.ticket.author}
-                    </Typography>
-                    <Typography >
-                        {"Assignee: " + props.ticket.assignee}
-                    </Typography>
-                    <Typography >
-                        {"Priority: " + props.ticket.priority}
-                    </Typography>
-                    <Typography >
-                        {"Label: " + props.ticket.label}
-                    </Typography>
-                {
-                    props.ticket.status !== 'Resolved' ?
-                        <>
-                            <Typography >
-                            {"Due: " + props.ticket.due}
+                        <Typography>
+                            {"Ticket Author: " + props.ticket.author}
                         </Typography>
-                        <Button variant="contained" sx={{mt:2}} >
-                            Mark as resolved
-                        </Button>
-                        </>
-                    :
-                    false
-                    }
+                        <Typography>
+                            {"Assignee: " + props.ticket.assignee}
+                        </Typography>
+                        <Typography>
+                            {"Priority: " + props.ticket.priority}
+                        </Typography>
+                        <Typography>
+                            {"Label: " + props.ticket.label}
+                        </Typography>
+                        {
+                            props.ticket.status !== 'Resolved' ?
+                                <>
+                                    <Typography>
+                                        {"Due: " + props.ticket.due}
+                                    </Typography>
+                                    <Button variant="contained" sx={{mt: 2}}>
+                                        Mark as resolved
+                                    </Button>
+                                </>
+                                :
+                                false
+                        }
                     </Stack>
                 </Box>
             </Modal>

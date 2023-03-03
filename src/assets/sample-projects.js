@@ -2,6 +2,7 @@ export const projectList = [
     {
         title: "Pied Piper",
         author: "Richard Hendricks",
+        members: "Richard, Gilfoyle, Dinesh",
         tickets: [
             {
                 ticketTitle: "Error Code 80085: Compression failure.",
@@ -18,7 +19,7 @@ export const projectList = [
                 description: "Core utils are no where to be found.",
                 due: "November 10, 2023",
                 label: "Error",
-                priority: "Medium" ,
+                priority: "Medium",
                 status: "Unresolved",
                 assignee: "Gilfoyle",
                 author: "Richard Hendricks",
@@ -38,6 +39,7 @@ export const projectList = [
     {
         title: "Anton",
         author: "Bertram Gilfoyle",
+        members: "Richard, Gilfoyle, Dinesh",
         tickets: [
             {
                 ticketTitle: "Hack the smart fridges",
@@ -54,6 +56,7 @@ export const projectList = [
     {
         title: "Psylocybe Cubensis",
         author: "Erlich Bachman",
+        members: "Jian Yang",
         tickets: [
             {
                 ticketTitle: "Deploy Chinese Pied Piper",

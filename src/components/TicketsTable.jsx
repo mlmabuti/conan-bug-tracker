@@ -20,7 +20,7 @@ export const TicketsTable = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>
-                            <Typography variant="h6" sx={{px:1}}>
+                            <Typography variant="h6" sx={{px: 1}}>
                                 Ticket Name
                             </Typography>
                         </TableCell>
@@ -40,9 +40,9 @@ export const TicketsTable = (props) => {
                 <TableBody>
                     {
                         props.showResolved
-                      ?
+                            ?
 
-                            resolvedTickets.map( (ticket) =>
+                            resolvedTickets.map((ticket) =>
                                 <TableRow>
                                     <TableCell>
                                         <DescriptionModal ticket={ticket}/>
@@ -57,7 +57,7 @@ export const TicketsTable = (props) => {
                             )
                             :
 
-                            unresolvedTickets.map( (ticket) =>
+                            unresolvedTickets.map((ticket) =>
                                 <TableRow key={ticket.ticketTitle}>
                                     <TableCell>
                                         <DescriptionModal ticket={ticket}/>

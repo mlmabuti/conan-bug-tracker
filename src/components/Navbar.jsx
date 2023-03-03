@@ -8,7 +8,7 @@ export const Navbar = (props) => {
 
     return (
         <Stack
-            sx={{py: 2, borderBottom:"1px solid dimgray" }}
+            sx={{py: 2, borderBottom: "1px solid dimgray"}}
             direction="row"
             justifyContent="space-around"
             alignItems="center"
@@ -19,9 +19,9 @@ export const Navbar = (props) => {
             </Stack>
 
             <Stack direction="row" alignItems="center" spacing={2}>
-                <Link underline="hover" color="inherit" target="_blank" href="https://github.com/mlmabuti/conan-bug-tracker">Documentation</Link>
-                <Button variant="outlined" onClick={() =>
-                {
+                <Link underline="hover" color="inherit" target="_blank"
+                      href="https://github.com/mlmabuti/conan-bug-tracker">Documentation</Link>
+                <Button variant="outlined" onClick={() => {
                     props.colorMode === 'dark' ? props.setColorMode('light') : props.setColorMode('dark')
                 }
                 }>
