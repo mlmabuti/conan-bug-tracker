@@ -19,7 +19,7 @@ export const Navbar = (props) => {
             </Stack>
 
             <Stack direction="row" alignItems="center" spacing={2}>
-                <Link color="inherit" target="_blank" href="https://github.com/mlmabuti/conan-bug-tracker">About</Link>
+                <Link underline="hover" color="inherit" target="_blank" href="https://github.com/mlmabuti/conan-bug-tracker">Documentation</Link>
                 <Button variant="outlined" onClick={() =>
                 {
                     props.colorMode === 'dark' ? props.setColorMode('light') : props.setColorMode('dark')
