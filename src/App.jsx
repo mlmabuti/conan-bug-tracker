@@ -7,7 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [colorMode, setColorMode] = useState('dark')
+    const [colorMode, setColorMode] = useState('light')
 
     const darkTheme = createTheme({
         palette: {
