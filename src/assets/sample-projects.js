@@ -12,7 +12,7 @@ export const projectList = [
                 priority: "High",
                 status: "Unresolved",
                 assignee: "Dinesh",
-                author: "Richard Hendricks",
+                ticketAuthor: "Richard Hendricks",
             },
             {
                 ticketTitle: "Error C-137: Missing core utils.",
@@ -22,7 +22,7 @@ export const projectList = [
                 priority: "Medium",
                 status: "Unresolved",
                 assignee: "Gilfoyle",
-                author: "Richard Hendricks",
+                ticketAuthor: "Richard Hendricks",
             },
             {
                 ticketTitle: "Destroy Chinese Pied Piper",
@@ -32,7 +32,7 @@ export const projectList = [
                 priority: "Very High",
                 status: "Resolved",
                 assignee: "Gilfoyle",
-                author: "Jared Dunn"
+                ticketAuthor: "Jared Dunn"
             },
         ]
     },
@@ -49,7 +49,7 @@ export const projectList = [
                 priority: "High",
                 status: "Unresolved",
                 assignee: "Gilfoyle",
-                author: "Bertram Gilfoyle",
+                ticketAuthor: "Bertram Gilfoyle",
             },
         ]
     },
@@ -66,7 +66,7 @@ export const projectList = [
                 priority: "Very High",
                 status: "Unresolved",
                 assignee: "Dinesh",
-                author: "Jian Yang"
+                ticketAuthor: "Jian Yang"
             },
         ]
     },

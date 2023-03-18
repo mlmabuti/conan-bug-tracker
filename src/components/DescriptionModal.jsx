@@ -40,7 +40,7 @@ export const DescriptionModal = (props) => {
                     <hr/>
                     <Stack spacing={1}>
                         <Typography>
-                            {"Ticket Author: " + props.ticket.author}
+                            {"Ticket Author: " + props.ticket.ticketAuthor}
                         </Typography>
                         <Typography>
                             {"Assignee: " + props.ticket.assignee}
