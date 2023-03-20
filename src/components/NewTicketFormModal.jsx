@@ -8,7 +8,7 @@ import {TextField} from "@mui/material";
 
 const style = {
     position: 'absolute',
-    width: '30%',
+    width: '40%',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',

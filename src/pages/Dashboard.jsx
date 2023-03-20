@@ -1,13 +1,31 @@
-import {Button, Card, Container, Stack, Typography} from "@mui/material";
+import {Card, Container, Stack, Typography} from "@mui/material";
 import {ProjectsTable} from "../components/ProjectsTable.jsx";
-import {projectList} from "../assets/sample-projects.js";
 import {Project} from "./Project.jsx";
-import {useState} from "react";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import {useEffect, useState} from "react";
 import {NewProjectFormModal} from "../components/NewProjectFormModal.jsx";
+import { db } from "../firebase-config";
+import { getDocs, collection } from "firebase/firestore";
 
 export const Dashboard = () => {
     const [chosenProject, chooseProject] = useState(null);
+
+    const [projectList, setProjectList] = useState([]);
+    const projectCollectionRef = collection(db, "projects");
+
+    useEffect(() => {
+            const getProjectList = async () => {
+                try {
+                    const data = await getDocs(projectCollectionRef);
+                    const filteredData = data.docs.map((doc) => ({...doc.data(), id: doc.id,}));
+                    console.log(filteredData);
+                    setProjectList(filteredData);
+                } catch (e) {
+                    console.error(e);
+                }
+            };
+            getProjectList();
+        }, []);
+
     return (
         <>
             {
