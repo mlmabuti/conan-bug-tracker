@@ -11,19 +11,17 @@ export const Dashboard = () => {
 
     const [projectList, setProjectList] = useState([]);
     const projectCollectionRef = collection(db, "projects");
-
+    const getProjectList = async () => {
+        try {
+            const data = await getDocs(projectCollectionRef);
+            const filteredData = data.docs.map((doc) => ({...doc.data(), id: doc.id,}));
+            setProjectList(filteredData);
+        } catch (e) {
+            console.error(e);
+        }
+    };
     useEffect(() => {
-            const getProjectList = async () => {
-                try {
-                    const data = await getDocs(projectCollectionRef);
-                    const filteredData = data.docs.map((doc) => ({...doc.data(), id: doc.id,}));
-                    console.log(filteredData);
-                    setProjectList(filteredData);
-                } catch (e) {
-                    console.error(e);
-                }
-            };
-            getProjectList();
+            getProjectList().then(r => 0 );
         }, []);
 
     return (
@@ -40,7 +38,7 @@ export const Dashboard = () => {
                                    sx={{mb: 3}}
                             >
                                 <Typography variant="h4">{`Projects`}</Typography>
-                                <NewProjectFormModal/>
+                                <NewProjectFormModal collectionRef={projectCollectionRef} getProjectList={getProjectList} />
                             </Stack>
                             <ProjectsTable projects={projectList} chooseProject={chooseProject}/>
                         </Card>

@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {TextField} from "@mui/material";
+import {addDoc} from "firebase/firestore";
 
 const style = {
     position: 'absolute',
@@ -18,10 +19,37 @@ const style = {
     p: 4,
 };
 
-export const NewTicketFormModal = () => {
+export const NewTicketFormModal = (props) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [newAssignee, setNewAssignee] = useState("");
+    const [newDescription, setNewDescription] = useState("");
+    const [newDue, setNewDue] = useState("");
+    const [newLabel, setNewLabel] = useState("");
+    const [newPriority, setNewPriority] = useState("");
+    const [newTicketAuthor, setNewTicketAuthor] = useState("SAMPLE");
+    const [newTicketTitle, setNewTicketTitle] = useState("");
+
+    const onSubmitTicket = async () => {
+        try {
+            await addDoc(props.collectionRef, { tickets: [{
+                assignee: newAssignee,
+                    description: newDescription,
+                    due: newDue,
+                    label: newLabel,
+                    priority: newPriority,
+                    status: "Unresolved",
+                    ticketAuthor: newTicketAuthor,
+                    ticketTitle: newTicketTitle,
+                }]  });
+        } catch (e) {
+            console.error(e)
+        }
+        // props.getProjectList();
+        handleClose();
+    }
 
     return (
         <>
@@ -39,16 +67,14 @@ export const NewTicketFormModal = () => {
                         Create New Ticket
                     </Typography>
 
-                    <TextField fullWidth required label="Ticket Name" sx={{mt: 1}}/>
-                    <TextField fullWidth required multiline rows={3} label="Description" sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Assignee" sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Priority" sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Label" sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Due Date" sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Ticket Name" onChange={(e) => setNewTicketTitle(e.target.value)} sx={{mt: 1}}/>
+                    <TextField fullWidth required multiline rows={3} onChange={(e) => setNewDescription(e.target.value)} label="Description" sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Assignee" onChange={(e) => setNewAssignee(e.target.value)} sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Priority" onChange={(e) => setNewPriority(e.target.value)} sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Label" onChange={(e) => setNewLabel(e.target.value) } sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Due Date" onChange={(e) => setNewDue(e.target.value) } sx={{mt: 1}}/>
 
-                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}} onClick={() =>
-                        handleClose()
-                    }>
+                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}} onClick={onSubmitTicket} >
                         Submit
                     </Button>
                 </Box>

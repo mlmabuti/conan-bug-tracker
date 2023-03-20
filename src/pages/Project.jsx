@@ -2,12 +2,17 @@ import {Button, Container, Stack, Typography, Paper, ButtonGroup} from "@mui/mat
 import {TicketsTable} from "../components/TicketsTable"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {MembersPopover} from "../components/MembersPopover.jsx";
 import {NewTicketFormModal} from "../components/NewTicketFormModal.jsx";
+import { db } from "../firebase-config";
+import { getDocs, collection } from "firebase/firestore";
 
 export const Project = (props) => {
     const [showResolved, setShowResolved] = useState(false);
+
+    // GET TICKET LIST INSTEAD OF PROJECT LIST
+
     return (
         <>
             <Container maxWidth="lg">
@@ -26,13 +31,12 @@ export const Project = (props) => {
                             spacing={2}>
                             <Button color="primary" variant="text" onClick={() =>
                                 showResolved ? setShowResolved(false) : setShowResolved(true)
-
                             }>
                                 {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                             </Button>
                             <ButtonGroup variant="contained">
 
-                                <NewTicketFormModal/>
+                                <NewTicketFormModal />
 
                                 <MembersPopover members={props.project.members}/>
 
@@ -44,7 +48,15 @@ export const Project = (props) => {
                         </Stack>
                     </Stack>
 
-                    <TicketsTable project={props.project} showResolved={showResolved}/>
+                    {
+                        props.project.tickets ?
+                            <TicketsTable project={props.project} showResolved={showResolved}/>
+                            :
+                            <>
+                            <hr/>
+                            <Typography variant="h6">You have no available tickets for this project.</Typography>
+                            </>
+                    }
 
                 </Paper>
             </Container>

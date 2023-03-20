@@ -43,12 +43,12 @@ export const Auth = (props) => {
                         false
                     }
 
-                    <TextField type="email" label="Email" onChange={(e) => setEmail(e.target.value)}></TextField>
-                    <TextField type="password" label="Password"
+                    <TextField disabled type="email" label="Email" onChange={(e) => setEmail(e.target.value)}></TextField>
+                    <TextField disabled type="password" label="Password"
                                onChange={(e) => setPassword(e.target.value)}></TextField>
 
                     <Stack spacing={1}>
-                        <Button variant="contained" onClick={signIn}>Sign in</Button>
+                        <Button disabled variant="contained" onClick={signIn}>Sign in</Button>
                         <Button color="warning" variant="contained" onClick={signInWithGoogle}>Continue with
                             Google</Button>
                     </Stack>

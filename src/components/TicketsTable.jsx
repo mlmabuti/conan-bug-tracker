@@ -14,6 +14,7 @@ import {DescriptionModal} from "./DescriptionModal.jsx";
 export const TicketsTable = (props) => {
     const resolvedTickets = props.project.tickets.filter(ticket => ticket.status === 'Resolved');
     const unresolvedTickets = props.project.tickets.filter(ticket => ticket.status !== 'Resolved')
+
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -41,7 +42,6 @@ export const TicketsTable = (props) => {
                     {
                         props.showResolved
                             ?
-
                             resolvedTickets.map((ticket) =>
                                 <TableRow key={ticket.ticketTitle}>
                                     <TableCell>
@@ -76,21 +76,3 @@ export const TicketsTable = (props) => {
         </TableContainer>
     )
 }
-
-// {props.projects.map( (project) =>
-//    <TableRow>
-//        <TableCell>
-//            <Button variant="text" color="info" onClick={
-//                () => props.chooseProject(project)
-//            }>
-//                {project.title}
-//            </Button>
-//        </TableCell>
-//        <TableCell>
-//            <Typography>
-//                {project.author}
-//            </Typography>
-//        </TableCell>
-//    </TableRow>
-//)
-//}
