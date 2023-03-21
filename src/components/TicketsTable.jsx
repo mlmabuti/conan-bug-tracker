@@ -12,8 +12,8 @@ import {
 import {DescriptionModal} from "./DescriptionModal.jsx";
 
 export const TicketsTable = (props) => {
-    const resolvedTickets = props.project.tickets.filter(ticket => ticket.status === 'Resolved');
-    const unresolvedTickets = props.project.tickets.filter(ticket => ticket.status !== 'Resolved')
+    const resolvedTickets = props.tickets.filter(ticket => ticket.status === 'Resolved');
+    const unresolvedTickets = props.tickets.filter(ticket => ticket.status !== 'Resolved' && ticket.ticketTitle);
 
     return (
         <TableContainer component={Paper}>

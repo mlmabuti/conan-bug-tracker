@@ -43,7 +43,8 @@ export const Auth = (props) => {
                         false
                     }
 
-                    <TextField disabled type="email" label="Email" onChange={(e) => setEmail(e.target.value)}></TextField>
+                    <TextField disabled type="email" label="Email"
+                               onChange={(e) => setEmail(e.target.value)}></TextField>
                     <TextField disabled type="password" label="Password"
                                onChange={(e) => setPassword(e.target.value)}></TextField>
 

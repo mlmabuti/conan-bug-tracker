@@ -4,8 +4,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import {TextField} from "@mui/material";
-import {addDoc} from "firebase/firestore";
+import {TextField, FormControl} from "@mui/material";
+import {addDoc, getDoc, updateDoc} from "firebase/firestore";
 
 const style = {
     position: 'absolute',
@@ -32,22 +32,42 @@ export const NewTicketFormModal = (props) => {
     const [newTicketAuthor, setNewTicketAuthor] = useState("SAMPLE");
     const [newTicketTitle, setNewTicketTitle] = useState("");
 
+
     const onSubmitTicket = async () => {
-        try {
-            await addDoc(props.collectionRef, { tickets: [{
-                assignee: newAssignee,
-                    description: newDescription,
-                    due: newDue,
-                    label: newLabel,
-                    priority: newPriority,
-                    status: "Unresolved",
-                    ticketAuthor: newTicketAuthor,
-                    ticketTitle: newTicketTitle,
-                }]  });
-        } catch (e) {
-            console.error(e)
+        if (newTicketTitle === "") {
+            handleClose();
+            return
         }
-        // props.getProjectList();
+
+        try {
+            const docSnap = await getDoc(props.projectRef);
+            const oldTickets = docSnap.data().tickets;
+
+
+            await updateDoc(props.projectRef, {
+                tickets: [...oldTickets, {
+                    ticketTitle: newTicketTitle,
+                    ticketAuthor: newTicketAuthor,
+                    priority: newPriority,
+                    label: newLabel,
+                    due: newDue,
+                    description: newDescription,
+                    assignee: newAssignee,
+                    status: "Unresolved"
+                }]
+            });
+        } catch (e) {
+            console.error(e);
+        }
+        props.getTicketList();
+
+        setNewAssignee("");
+        setNewTicketAuthor("");
+        setNewLabel("");
+        setNewDue("");
+        setNewDescription("");
+        setNewTicketTitle("");
+
         handleClose();
     }
 
@@ -66,15 +86,33 @@ export const NewTicketFormModal = (props) => {
                     <Typography id="modal-modal-title" variant="h5" component="h2" sx={{my: 2}}>
                         Create New Ticket
                     </Typography>
+                    <TextField fullWidth required label="Ticket Name"
+                               onChange={(e) =>
+                                   setNewTicketTitle(e.target.value)
+                               } sx={{mt: 1}}/>
+                    <TextField fullWidth required multiline rows={3}
+                               onChange={(e) =>
+                                   setNewDescription(e.target.value)
+                               }
+                               label="Description" sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Assignee" onChange={(e) =>
+                        setNewAssignee(e.target.value)
+                    }
+                               sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Priority" onChange={(e) =>
+                        setNewPriority(e.target.value)
+                    }
+                               sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Label" onChange={(e) =>
+                        setNewLabel(e.target.value)
+                    }
+                               sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Due Date" onChange={(e) =>
+                        setNewDue(e.target.value)
+                    }
+                               sx={{mt: 1}}/>
 
-                    <TextField fullWidth required label="Ticket Name" onChange={(e) => setNewTicketTitle(e.target.value)} sx={{mt: 1}}/>
-                    <TextField fullWidth required multiline rows={3} onChange={(e) => setNewDescription(e.target.value)} label="Description" sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Assignee" onChange={(e) => setNewAssignee(e.target.value)} sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Priority" onChange={(e) => setNewPriority(e.target.value)} sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Label" onChange={(e) => setNewLabel(e.target.value) } sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Due Date" onChange={(e) => setNewDue(e.target.value) } sx={{mt: 1}}/>
-
-                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}} onClick={onSubmitTicket} >
+                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}} onClick={onSubmitTicket}>
                         Submit
                     </Button>
                 </Box>

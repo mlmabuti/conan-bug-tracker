@@ -1,6 +1,7 @@
 import {Button, Link, Stack, Typography} from "@mui/material";
 import {signOut} from 'firebase/auth';
 import {auth} from '../firebase-config';
+
 export const Navbar = (props) => {
     const logout = async () => {
         try {

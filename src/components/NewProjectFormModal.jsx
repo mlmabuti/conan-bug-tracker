@@ -28,9 +28,25 @@ export const NewProjectFormModal = (props) => {
     const [newProject, setNewProject] = useState("");
 
     const onSubmitProject = async () => {
+        if (newProject === "") {
+            handleClose();
+            return;
+        }
         try {
-            await addDoc(props.collectionRef, {title: newProject, author: "SAMPLE",
-                members: "SAMPLE MEMS",});
+            await addDoc(props.collectionRef, {
+                title: newProject, author: "SAMPLE",
+                members: "SAMPLE MEMS",
+                tickets: [{
+                    ticketTitle: "",
+                    ticketAuthor: "",
+                    priority: "",
+                    assignee: "",
+                    description: "",
+                    due: "",
+                    label: "",
+                    status: "",
+                }]
+            });
         } catch (e) {
             console.error(e)
         }

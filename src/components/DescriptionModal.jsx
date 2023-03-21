@@ -7,13 +7,15 @@ import {ButtonGroup, Stack} from "@mui/material";
 
 const style = {
     position: 'absolute',
-    top: '35%',
+    width: '40%',
+    top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
     borderRadius: 1,
     boxShadow: 10,
     p: 4,
+
 };
 
 export const DescriptionModal = (props) => {

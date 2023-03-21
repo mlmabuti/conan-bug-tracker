@@ -3,8 +3,8 @@ import {ProjectsTable} from "../components/ProjectsTable.jsx";
 import {Project} from "./Project.jsx";
 import {useEffect, useState} from "react";
 import {NewProjectFormModal} from "../components/NewProjectFormModal.jsx";
-import { db } from "../firebase-config";
-import { getDocs, collection } from "firebase/firestore";
+import {db} from "../firebase-config";
+import {getDocs, collection} from "firebase/firestore";
 
 export const Dashboard = () => {
     const [chosenProject, chooseProject] = useState(null);
@@ -20,9 +20,10 @@ export const Dashboard = () => {
             console.error(e);
         }
     };
+
     useEffect(() => {
-            getProjectList().then(r => 0 );
-        }, []);
+        getProjectList().then(r => 0);
+    }, []);
 
     return (
         <>
@@ -38,7 +39,8 @@ export const Dashboard = () => {
                                    sx={{mb: 3}}
                             >
                                 <Typography variant="h4">{`Projects`}</Typography>
-                                <NewProjectFormModal collectionRef={projectCollectionRef} getProjectList={getProjectList} />
+                                <NewProjectFormModal collectionRef={projectCollectionRef}
+                                                     getProjectList={getProjectList}/>
                             </Stack>
                             <ProjectsTable projects={projectList} chooseProject={chooseProject}/>
                         </Card>

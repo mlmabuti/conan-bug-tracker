@@ -5,13 +5,32 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {useEffect, useState} from "react";
 import {MembersPopover} from "../components/MembersPopover.jsx";
 import {NewTicketFormModal} from "../components/NewTicketFormModal.jsx";
-import { db } from "../firebase-config";
-import { getDocs, collection } from "firebase/firestore";
+import {db} from "../firebase-config";
+import {doc, getDoc, setDoc, updateDoc, getDocs, collection} from "firebase/firestore";
+
+import projectList from '../assets/sample-projects';
 
 export const Project = (props) => {
     const [showResolved, setShowResolved] = useState(false);
 
     // GET TICKET LIST INSTEAD OF PROJECT LIST
+    const projectRef = doc(db, "projects", props.project.id)
+    const [ticketList, setTicketList] = useState([]);
+
+    const getTicketList = async () => {
+        try {
+            const docSnap = await getDoc(projectRef);
+            const tickets = docSnap.data().tickets;
+            setTicketList(tickets);
+            console.log(tickets);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    useEffect(() => {
+        getTicketList().then(r => 0);
+    }, [])
 
     return (
         <>
@@ -36,7 +55,7 @@ export const Project = (props) => {
                             </Button>
                             <ButtonGroup variant="contained">
 
-                                <NewTicketFormModal />
+                                <NewTicketFormModal getTicketList={getTicketList} projectRef={projectRef}/>
 
                                 <MembersPopover members={props.project.members}/>
 
@@ -49,13 +68,7 @@ export const Project = (props) => {
                     </Stack>
 
                     {
-                        props.project.tickets ?
-                            <TicketsTable project={props.project} showResolved={showResolved}/>
-                            :
-                            <>
-                            <hr/>
-                            <Typography variant="h6">You have no available tickets for this project.</Typography>
-                            </>
+                        <TicketsTable tickets={ticketList} showResolved={showResolved}/>
                     }
 
                 </Paper>
