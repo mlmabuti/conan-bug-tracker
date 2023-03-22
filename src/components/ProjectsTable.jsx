@@ -1,18 +1,9 @@
 import {
-    Box,
-    Button,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Typography
+    Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography
 } from "@mui/material";
 
 export const ProjectsTable = (props) => {
-    return (
-        <TableContainer component={Box}>
+    return (<TableContainer component={Box}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -30,25 +21,19 @@ export const ProjectsTable = (props) => {
                 </TableHead>
 
                 <TableBody>
-                    {props.projects.map((project) =>
-                        <TableRow key={project.title}>
-                            <TableCell>
-                                <Button variant="text" color="info" onClick={
-                                    () => props.chooseProject(project)
-                                }>
-                                    {project.title}
-                                </Button>
-                            </TableCell>
-                            <TableCell>
-                                <Typography>
-                                    {project.author}
-                                </Typography>
-                            </TableCell>
-                        </TableRow>
-                    )
-                    }
+                    {props.projects.map((project) => <TableRow key={project.title}>
+                        <TableCell>
+                            <Button variant="text" color="info" onClick={() => props.chooseProject(project)}>
+                                {project.title}
+                            </Button>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>
+                                {project.author}
+                            </Typography>
+                        </TableCell>
+                    </TableRow>)}
                 </TableBody>
             </Table>
-        </TableContainer>
-    )
+        </TableContainer>)
 }

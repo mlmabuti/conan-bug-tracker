@@ -34,9 +34,7 @@ export const NewProjectFormModal = (props) => {
         }
         try {
             await addDoc(props.collectionRef, {
-                title: newProject, author: "SAMPLE",
-                members: "SAMPLE MEMS",
-                tickets: [{
+                title: newProject, author: "SAMPLE", members: "SAMPLE MEMS", tickets: [{
                     ticketTitle: "",
                     ticketAuthor: "",
                     priority: "",
@@ -54,8 +52,7 @@ export const NewProjectFormModal = (props) => {
         handleClose();
     }
 
-    return (
-        <div>
+    return (<div>
             <Button onClick={handleOpen} variant="contained">
                 <AddCircleIcon/>
             </Button>
@@ -70,13 +67,11 @@ export const NewProjectFormModal = (props) => {
                     </Typography>
                     <TextField required fullWidth label="Project Title" onChange={(e) => {
                         setNewProject(e.target.value)
-                    }
-                    } sx={{my: 2}}/>
+                    }} sx={{my: 2}}/>
                     <Button fullWidth variant="contained" color="primary" onClick={onSubmitProject}>
                         Submit
                     </Button>
                 </Box>
             </Modal>
-        </div>
-    );
+        </div>);
 }

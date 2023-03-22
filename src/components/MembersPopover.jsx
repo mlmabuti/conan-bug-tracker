@@ -16,8 +16,7 @@ export const MembersPopover = (props) => {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    return (
-        <>
+    return (<>
             <Button aria-describedby={id} color="info" onClick={handleClick}>
                 <PeopleAlt/>
             </Button>
@@ -27,12 +26,10 @@ export const MembersPopover = (props) => {
                 anchorEl={anchorEl}
                 onClose={handleClose}
                 anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
+                    vertical: 'bottom', horizontal: 'left',
                 }}
             >
                 <Typography sx={{p: 2}}>{props.members}</Typography>
             </Popover>
-        </>
-    )
+        </>)
 }

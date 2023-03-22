@@ -25,27 +25,21 @@ export const Dashboard = () => {
         getProjectList().then(r => 0);
     }, []);
 
-    return (
-        <>
-            {
-                chosenProject ?
-                    <Project project={chosenProject} chooseProject={chooseProject}/>
-                    :
-                    <Container maxWidth="lg">
-                        <Card sx={{p: 4, m: 6}} elevation={2}>
-                            <Stack direction="row"
-                                   alignItems="center"
-                                   justifyContent="space-between"
-                                   sx={{mb: 3}}
-                            >
-                                <Typography variant="h4">{`Projects`}</Typography>
-                                <NewProjectFormModal collectionRef={projectCollectionRef}
-                                                     getProjectList={getProjectList}/>
-                            </Stack>
-                            <ProjectsTable projects={projectList} chooseProject={chooseProject}/>
-                        </Card>
-                    </Container>
-            }
-        </>
-    )
+    return (<>
+            {chosenProject ? <Project project={chosenProject} chooseProject={chooseProject}/> :
+                <Container maxWidth="lg">
+                    <Card sx={{p: 4, m: 6}} elevation={2}>
+                        <Stack direction="row"
+                               alignItems="center"
+                               justifyContent="space-between"
+                               sx={{mb: 3}}
+                        >
+                            <Typography variant="h4">{`Projects`}</Typography>
+                            <NewProjectFormModal collectionRef={projectCollectionRef}
+                                                 getProjectList={getProjectList}/>
+                        </Stack>
+                        <ProjectsTable projects={projectList} chooseProject={chooseProject}/>
+                    </Card>
+                </Container>}
+        </>)
 }

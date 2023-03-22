@@ -30,18 +30,14 @@ export const Auth = (props) => {
         }
     }
 
-    return (
-        <Container maxWidth="xs">
+    return (<Container maxWidth="xs">
             <Paper sx={{p: 6, mt: "25%"}} elevation={2}>
                 <Stack spacing={2}>
                     <Typography variant="h4" sx={{mb: "12px"}} alignSelf="center"> Sign in</Typography>
 
-                    {isIncorrect ?
-                        <Typography variant="subtitle2" sx={{color: "red"}}>
-                            Invalid email or password. Please try again.
-                        </Typography> :
-                        false
-                    }
+                    {isIncorrect ? <Typography variant="subtitle2" sx={{color: "red"}}>
+                        Invalid email or password. Please try again.
+                    </Typography> : false}
 
                     <TextField disabled type="email" label="Email"
                                onChange={(e) => setEmail(e.target.value)}></TextField>
@@ -61,6 +57,5 @@ export const Auth = (props) => {
                     </Typography>
                 </Stack>
             </Paper>
-        </Container>
-    )
+        </Container>)
 }

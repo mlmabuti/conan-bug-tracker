@@ -13,8 +13,7 @@ export const Navbar = (props) => {
         }
     }
 
-    return (
-        <Stack
+    return (<Stack
             sx={{py: 2, borderBottom: "1px solid dimgray"}}
             direction="row"
             justifyContent="space-around"
@@ -30,14 +29,12 @@ export const Navbar = (props) => {
                       href="https://github.com/mlmabuti/conan-bug-tracker">Documentation</Link>
                 <Button variant="outlined" onClick={() => {
                     props.colorMode === 'dark' ? props.setColorMode('light') : props.setColorMode('dark')
-                }
-                }>
+                }}>
                     {props.colorMode + " mode"}
                 </Button>
                 <Button variant="outlined" color="error" onClick={logout}>
                     Logout
                 </Button>
             </Stack>
-        </Stack>
-    )
+        </Stack>)
 }

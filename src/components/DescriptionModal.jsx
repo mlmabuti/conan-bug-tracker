@@ -3,7 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {ButtonGroup, Stack} from "@mui/material";
+import {Stack} from "@mui/material";
+import {db} from '../firebase-config';
+import {doc, updateDoc} from "firebase/firestore";
 
 const style = {
     position: 'absolute',
@@ -23,8 +25,35 @@ export const DescriptionModal = (props) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    return (
-        <div>
+    const getTicketIndex = () => {
+        console.log("called")
+        for (let i = 0; i < props.allTickets.length; i++) {
+            if (props.ticket === props.allTickets[i]) {
+                console.log("The index is " + i)
+                return i;
+            }
+        }
+    }
+    const excludeTicket = (index) => {
+        let newTickets = [];
+        for (let i = 0; i < props.allTickets.length; i++) {
+            if (i !== index) {
+                newTickets.push(props.allTickets[i])
+            }
+        }
+        console.log(newTickets)
+        return newTickets;
+    }
+
+    const deleteTicket = async (index) => {
+        const projectDoc = doc(db, "projects", props.projectId)
+        await updateDoc(projectDoc, {
+            tickets: [...excludeTicket(index)]
+        });
+        props.getTicketList();
+    }
+
+    return (<div>
             <Button onClick={handleOpen}>{props.ticket.ticketTitle}</Button>
             <Modal
                 open={open}
@@ -57,27 +86,21 @@ export const DescriptionModal = (props) => {
                             {"Status: " + props.ticket.status}
                         </Typography>
 
-                        {
-                            props.ticket.status !== 'Resolved' ?
-                                <>
-                                    <Typography>
-                                        {"Due: " + props.ticket.due}
-                                    </Typography>
-                                    <ButtonGroup orientation="vertical">
-                                        <Button variant="contained" color="success" sx={{mt: 2}}>
-                                            Mark as resolved
-                                        </Button>
-                                        <Button variant="outlined" color="error" sx={{mt: 2}}>
-                                            Delete Ticket
-                                        </Button>
-                                    </ButtonGroup>
-                                </>
-                                :
-                                false
-                        }
+                        {props.ticket.status !== 'Resolved' ? <>
+                            <Typography>
+                                {"Due: " + props.ticket.due}
+                            </Typography>
+                            <Button variant="contained" color="success" sx={{mt: 2}}>
+                                Mark as resolved
+                            </Button>
+                            <Button onClick={() => deleteTicket(getTicketIndex())} variant="outlined"
+                                    color="error"
+                                    sx={{mt: 2}}>
+                                Delete Ticket
+                            </Button>
+                        </> : false}
                     </Stack>
                 </Box>
             </Modal>
-        </div>
-    );
+        </div>);
 }

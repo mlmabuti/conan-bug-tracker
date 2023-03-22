@@ -1,12 +1,5 @@
 import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Typography
+    Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography
 } from "@mui/material";
 
 import {DescriptionModal} from "./DescriptionModal.jsx";
@@ -15,8 +8,7 @@ export const TicketsTable = (props) => {
     const resolvedTickets = props.tickets.filter(ticket => ticket.status === 'Resolved');
     const unresolvedTickets = props.tickets.filter(ticket => ticket.status !== 'Resolved' && ticket.ticketTitle);
 
-    return (
-        <TableContainer component={Paper}>
+    return (<TableContainer component={Paper}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -39,40 +31,32 @@ export const TicketsTable = (props) => {
                 </TableHead>
 
                 <TableBody>
-                    {
-                        props.showResolved
-                            ?
-                            resolvedTickets.map((ticket) =>
-                                <TableRow key={ticket.ticketTitle}>
-                                    <TableCell>
-                                        <DescriptionModal ticket={ticket}/>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Typography>{ticket.priority}</Typography>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Typography>{ticket.assignee}</Typography>
-                                    </TableCell>
-                                </TableRow>
-                            )
-                            :
+                    {props.showResolved ? resolvedTickets.map((ticket) => <TableRow key={ticket.ticketTitle}>
+                            <TableCell>
+                                <DescriptionModal ticket={ticket} projectId={props.projectId}/>
+                            </TableCell>
+                            <TableCell>
+                                <Typography>{ticket.priority}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography>{ticket.assignee}</Typography>
+                            </TableCell>
+                        </TableRow>) :
 
-                            unresolvedTickets.map((ticket) =>
-                                <TableRow key={ticket.ticketTitle}>
-                                    <TableCell>
-                                        <DescriptionModal ticket={ticket}/>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Typography>{ticket.priority}</Typography>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Typography>{ticket.assignee}</Typography>
-                                    </TableCell>
-                                </TableRow>
-                            )
-                    }
+                        unresolvedTickets.map((ticket) => <TableRow key={ticket.ticketTitle}>
+                            <TableCell>
+                                <DescriptionModal allTickets={props.tickets} getTicketList={props.getTicketList}
+                                                  tickets={unresolvedTickets} ticket={ticket}
+                                                  projectId={props.projectId}/>
+                            </TableCell>
+                            <TableCell>
+                                <Typography>{ticket.priority}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography>{ticket.assignee}</Typography>
+                            </TableCell>
+                        </TableRow>)}
                 </TableBody>
             </Table>
-        </TableContainer>
-    )
+        </TableContainer>)
 }

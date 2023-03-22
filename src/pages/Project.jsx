@@ -1,14 +1,12 @@
 import {Button, Container, Stack, Typography, Paper, ButtonGroup} from "@mui/material";
 import {TicketsTable} from "../components/TicketsTable"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {useEffect, useState} from "react";
 import {MembersPopover} from "../components/MembersPopover.jsx";
 import {NewTicketFormModal} from "../components/NewTicketFormModal.jsx";
 import {db} from "../firebase-config";
-import {doc, getDoc, setDoc, updateDoc, getDocs, collection} from "firebase/firestore";
+import {doc, getDoc} from "firebase/firestore";
 
-import projectList from '../assets/sample-projects';
 
 export const Project = (props) => {
     const [showResolved, setShowResolved] = useState(false);
@@ -32,47 +30,42 @@ export const Project = (props) => {
         getTicketList().then(r => 0);
     }, [])
 
-    return (
-        <>
-            <Container maxWidth="lg">
-                <Paper sx={{p: 4, m: 6}}>
+    return (<>
+        <Container maxWidth="lg">
+            <Paper sx={{p: 4, m: 6}}>
+                <Stack
+                    sx={{mb: 3}}
+                    direction="row"
+                    justifyContent="space-between"
+                >
+                    <Typography variant="h4">
+                        {props.project.title}
+                    </Typography>
+
                     <Stack
-                        sx={{mb: 3}}
                         direction="row"
-                        justifyContent="space-between"
-                    >
-                        <Typography variant="h4">
-                            {props.project.title}
-                        </Typography>
+                        spacing={2}>
+                        <Button color="primary" variant="text"
+                                onClick={() => showResolved ? setShowResolved(false) : setShowResolved(true)}>
+                            {showResolved ? 'Show Unresolved' : 'Show Resolved'}
+                        </Button>
+                        <ButtonGroup variant="contained">
 
-                        <Stack
-                            direction="row"
-                            spacing={2}>
-                            <Button color="primary" variant="text" onClick={() =>
-                                showResolved ? setShowResolved(false) : setShowResolved(true)
-                            }>
-                                {showResolved ? 'Show Unresolved' : 'Show Resolved'}
+                            <NewTicketFormModal getTicketList={getTicketList} projectRef={projectRef}/>
+
+                            <MembersPopover members={props.project.members}/>
+
+                            <Button color="warning" onClick={() => props.chooseProject(null)}>
+                                <ArrowBackIcon/>
                             </Button>
-                            <ButtonGroup variant="contained">
-
-                                <NewTicketFormModal getTicketList={getTicketList} projectRef={projectRef}/>
-
-                                <MembersPopover members={props.project.members}/>
-
-                                <Button color="warning" onClick={() =>
-                                    props.chooseProject(null)}>
-                                    <ArrowBackIcon/>
-                                </Button>
-                            </ButtonGroup>
-                        </Stack>
+                        </ButtonGroup>
                     </Stack>
+                </Stack>
 
-                    {
-                        <TicketsTable tickets={ticketList} showResolved={showResolved}/>
-                    }
+                {<TicketsTable tickets={ticketList} getTicketList={getTicketList} projectId={props.project.id}
+                               showResolved={showResolved}/>}
 
-                </Paper>
-            </Container>
-        </>
-    )
+            </Paper>
+        </Container>
+    </>)
 }
