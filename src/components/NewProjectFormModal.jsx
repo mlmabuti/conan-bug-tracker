@@ -6,6 +6,7 @@ import {useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {TextField} from "@mui/material";
 import {addDoc} from "firebase/firestore";
+import {auth} from "../firebase-config.js";
 
 const style = {
     position: 'absolute',
@@ -34,7 +35,7 @@ export const NewProjectFormModal = (props) => {
         }
         try {
             await addDoc(props.collectionRef, {
-                title: newProject, author: "SAMPLE", members: "SAMPLE MEMS", tickets: [{
+                title: newProject, author: auth.currentUser.displayName, members: "SAMPLE MEMS", tickets: [{
                     ticketTitle: "",
                     ticketAuthor: "",
                     priority: "",

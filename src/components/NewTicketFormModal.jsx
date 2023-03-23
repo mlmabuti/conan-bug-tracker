@@ -6,6 +6,7 @@ import {useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {TextField} from "@mui/material";
 import {getDoc, updateDoc} from "firebase/firestore";
+import {auth} from "../firebase-config.js";
 
 const style = {
     position: 'absolute',
@@ -29,7 +30,6 @@ export const NewTicketFormModal = (props) => {
     const [newDue, setNewDue] = useState("");
     const [newLabel, setNewLabel] = useState("");
     const [newPriority, setNewPriority] = useState("");
-    const [newTicketAuthor, setNewTicketAuthor] = useState("SAMPLE");
     const [newTicketTitle, setNewTicketTitle] = useState("");
 
 
@@ -48,7 +48,7 @@ export const NewTicketFormModal = (props) => {
             await updateDoc(props.projectRef, {
                 tickets: [...oldTickets, {
                     ticketTitle: newTicketTitle,
-                    ticketAuthor: newTicketAuthor,
+                    ticketAuthor: auth.currentUser.displayName,
                     priority: newPriority,
                     label: newLabel,
                     due: newDue,
@@ -63,7 +63,6 @@ export const NewTicketFormModal = (props) => {
         props.getTicketList();
 
         setNewAssignee("");
-        setNewTicketAuthor("");
         setNewLabel("");
         setNewDue("");
         setNewDescription("");
