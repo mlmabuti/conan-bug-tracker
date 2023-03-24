@@ -47,9 +47,33 @@ export const DescriptionModal = (props) => {
 
     const deleteTicket = async (index) => {
         const projectDoc = doc(db, "projects", props.projectId)
+
         await updateDoc(projectDoc, {
             tickets: [...excludeTicket(index)]
         });
+
+        props.getTicketList();
+    }
+
+    const updateTickets = (index) => {
+        let updatedTickets = [];
+
+        for (let i = 0; i < props.allTickets.length; i++) {
+            if (i === index) {
+                console.log(props.allTickets[i])
+                props.allTickets[i].status = "Resolved"
+            }
+            updatedTickets.push(props.allTickets[i])
+        }
+        console.log(updatedTickets)
+        return updatedTickets;
+    }
+
+    const markTicketAsResolved = async (index) => {
+        const projectDoc = doc(db, "projects", props.projectId);
+        await updateDoc(projectDoc, {
+            tickets: [...updateTickets(index)]
+        })
         props.getTicketList();
     }
 
@@ -90,7 +114,7 @@ export const DescriptionModal = (props) => {
                             <Typography>
                                 {"Due: " + props.ticket.due}
                             </Typography>
-                            <Button variant="contained" color="success" sx={{mt: 2}}>
+                            <Button onClick={() => markTicketAsResolved(getTicketIndex()) } variant="contained" color="success" sx={{mt: 2}}>
                                 Mark as resolved
                             </Button>
                             <Button onClick={() => deleteTicket(getTicketIndex())} variant="outlined"
