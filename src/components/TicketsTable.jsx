@@ -33,7 +33,8 @@ export const TicketsTable = (props) => {
                 <TableBody>
                     {props.showResolved ? resolvedTickets.map((ticket) => <TableRow key={ticket.ticketTitle}>
                             <TableCell>
-                                <DescriptionModal ticket={ticket} project={props.project} projectId={props.projectId}/>
+                                <DescriptionModal allTickets={props.tickets} ticket={ticket} project={props.project}
+                                                  getTicketList={props.getTicketList} projectId={props.projectId}/>
                             </TableCell>
                             <TableCell>
                                 <Typography>{ticket.priority}</Typography>

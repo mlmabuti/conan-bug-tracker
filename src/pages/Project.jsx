@@ -4,11 +4,12 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useEffect, useState} from "react";
 import {MembersPopover} from "../components/MembersPopover.jsx";
 import {NewTicketFormModal} from "../components/NewTicketFormModal.jsx";
-import {db} from "../firebase-config";
-import {doc, getDoc} from "firebase/firestore";
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import {auth, db} from "../firebase-config";
+import {doc, deleteDoc, getDoc} from "firebase/firestore";
 
 export const Project = (props) => {
+    const [toggleDisable, setToggleDisable] = useState("disabled")
     const [showResolved, setShowResolved] = useState(false);
 
     // GET TICKET LIST INSTEAD OF PROJECT LIST
@@ -26,8 +27,19 @@ export const Project = (props) => {
         }
     };
 
+    const deleteProject = async (id) => {
+        const projectDoc = doc(db, "projects", id);
+        await deleteDoc(projectDoc);
+        props.getProjectList();
+        props.chooseProject(null)
+    }
+
     useEffect(() => {
-        getTicketList().then(r => 0);
+        if (auth.currentUser.uid === props.project.userId) {
+            setToggleDisable("contained")
+        }
+        getTicketList()
+
     }, [])
 
     return (<>
@@ -50,8 +62,10 @@ export const Project = (props) => {
                             {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                         </Button>
                         <ButtonGroup variant="contained">
-
-                            <NewTicketFormModal getTicketList={getTicketList} projectRef={projectRef}/>
+                            <Button color="error" variant={toggleDisable} onClick={() => deleteProject(props.project.id)}>
+                                <DeleteIcon/>
+                            </Button>
+                            <NewTicketFormModal toggleDisable={toggleDisable} getTicketList={getTicketList} projectRef={projectRef}/>
 
                             <MembersPopover members={props.project.members}/>
 

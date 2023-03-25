@@ -22,11 +22,11 @@ export const Dashboard = () => {
     };
 
     useEffect(() => {
-        getProjectList().then(r => 0);
+        getProjectList()
     }, []);
 
     return (<>
-            {chosenProject ? <Project project={chosenProject} chooseProject={chooseProject}/> :
+            {chosenProject ? <Project project={chosenProject} getProjectList={getProjectList} chooseProject={chooseProject}/> :
                 <Container maxWidth="lg">
                     <Card sx={{p: 4, m: 6}} elevation={2}>
                         <Stack direction="row"

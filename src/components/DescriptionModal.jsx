@@ -132,7 +132,15 @@ export const DescriptionModal = (props) => {
                                     sx={{mt: 2}}>
                                 Delete Ticket
                             </Button>
-                        </> : false}
+                        </> :
+                            <>
+                            <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
+                                    color="error"
+                                    sx={{mt: 2}}>
+                                Delete Ticket
+                            </Button>
+                            </>
+                        }
                     </Stack>
                 </Box>
             </Modal>
