@@ -27,6 +27,7 @@ export const NewProjectFormModal = (props) => {
 
     // new project
     const [newProject, setNewProject] = useState("");
+    const [newMembers, setNewMembers] = useState("");
 
     const onSubmitProject = async () => {
         if (newProject === "") {
@@ -35,7 +36,7 @@ export const NewProjectFormModal = (props) => {
         }
         try {
             await addDoc(props.collectionRef, {
-                title: newProject, author: auth.currentUser.displayName, members: "SAMPLE MEMS", tickets: [{
+                title: newProject, author: auth.currentUser.displayName, members: newMembers, tickets: [{
                     ticketTitle: "",
                     ticketAuthor: "",
                     priority: "",
@@ -66,8 +67,14 @@ export const NewProjectFormModal = (props) => {
                     <Typography id="modal-modal-title" variant="h5" component="h2">
                         Create New Project
                     </Typography>
-                    <TextField required fullWidth label="Project Title" onChange={(e) => {
+                    <TextField required fullWidth label="Project Title" inputProps={{ maxLength: 32 }}
+                               placeholder="The maximum character limit is 32" onChange={(e) => {
                         setNewProject(e.target.value)
+                    }} sx={{my: 2}}/>
+                    <TextField required fullWidth label="Members" inputProps={{ maxLength: 80 }}
+                               placeholder="E.g. Richard Hendricks, Bertram Gilfoyle, Jared Dunn"
+                               onChange={(e) => {
+                        setNewMembers(e.target.value)
                     }} sx={{my: 2}}/>
                     <Button fullWidth variant="contained" color="primary" onClick={onSubmitProject}>
                         Submit
