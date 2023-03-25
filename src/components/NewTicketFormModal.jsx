@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import {TextField} from "@mui/material";
+import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {getDoc, updateDoc} from "firebase/firestore";
 import {auth} from "../firebase-config.js";
 
@@ -85,23 +85,51 @@ export const NewTicketFormModal = (props) => {
                     <Typography id="modal-modal-title" variant="h5" component="h2" sx={{my: 2}}>
                         Create New Ticket
                     </Typography>
-                    <TextField fullWidth required label="Ticket Name"
+                    <FormControl required fullWidth>
+
+
+                    <TextField fullWidth required label="Ticket Name" inputProps={{ maxLength: 64 }}
+                               placeholder="The maximum character limit is 64"
                                onChange={(e) => setNewTicketTitle(e.target.value)} sx={{mt: 1}}/>
                     <TextField fullWidth required multiline rows={3}
+                               inputProps={{ maxLength: 256 }}
+                               placeholder="The maximum character limit is 256"
                                onChange={(e) => setNewDescription(e.target.value)}
                                label="Description" sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Assignee" onChange={(e) => setNewAssignee(e.target.value)}
-                               sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Priority" onChange={(e) => setNewPriority(e.target.value)}
-                               sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Label" onChange={(e) => setNewLabel(e.target.value)}
-                               sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Due Date" onChange={(e) => setNewDue(e.target.value)}
+                    <TextField fullWidth required label="Assignee" inputProps={{ maxLength: 80 }}
+                               placeholder="E.g. Richard Hendricks, Bertram Gilfoyle, Jared Dunn"
+                               onChange={(e) => setNewAssignee(e.target.value)}
                                sx={{mt: 1}}/>
 
-                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}} onClick={onSubmitTicket}>
+                    <FormControl fullWidth  sx={{mt: 2}}>
+                        <InputLabel id="input-priority-label">Priority* </InputLabel>
+                        <Select
+                            label="Priority"
+                            labelId="input-priority-label"
+                            id="input-priority"
+                            value={newPriority}
+                            onChange={(e) => setNewPriority(e.target.value)}
+                        >
+                            <MenuItem value={"Very High"}>Very High</MenuItem>
+                            <MenuItem value={"High"}>High</MenuItem>
+                            <MenuItem value={"Medium"}>Medium</MenuItem>
+                            <MenuItem value={"Low"}>Low</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <TextField fullWidth required label="Label" inputProps={{ maxLength: 32 }}
+                               placeholder="E.g. Issue, Bug, Enhancement, Documentation, Optional, and etc." onChange={(e) => setNewLabel(e.target.value)}
+                               sx={{mt: 1}}/>
+                    <TextField fullWidth required label="Due Date" inputProps={{ maxLength: 32 }}
+                               placeholder="E.g. March 25, 2023"
+                               onChange={(e) => setNewDue(e.target.value)}
+                               sx={{mt: 1}}/>
+
+                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}}
+                            onClick={onSubmitTicket}>
                         Submit
                     </Button>
+                    </FormControl>
                 </Box>
             </Modal>
         </>);
