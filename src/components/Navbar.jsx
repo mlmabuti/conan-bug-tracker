@@ -21,7 +21,7 @@ export const Navbar = (props) => {
         >
             <Stack direction="row" alignItems="center" spacing={1}>
                 <img src={"/favicon.png"} width="32px" alt="conan-logo"/>
-                <Typography variant="h5">Conan Bug Tracker</Typography>
+                <Typography variant="h5">Conan Bug Tracker: Beta Test</Typography>
             </Stack>
 
             <Stack direction="row" alignItems="center" spacing={2}>

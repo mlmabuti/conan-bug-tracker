@@ -62,7 +62,7 @@ export const Project = (props) => {
                     </Stack>
                 </Stack>
 
-                {<TicketsTable tickets={ticketList} getTicketList={getTicketList} projectId={props.project.id}
+                {<TicketsTable tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
                                showResolved={showResolved}/>}
 
             </Paper>

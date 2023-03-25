@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import {Stack} from "@mui/material";
 import {db} from '../firebase-config';
 import {doc, updateDoc} from "firebase/firestore";
+import {auth} from "../firebase-config";
 
 const style = {
     position: 'absolute',
@@ -24,6 +25,16 @@ export const DescriptionModal = (props) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [toggleMarkAsResolved, setToggleMarkAsResolved] = useState("disabled");
+    const [toggleDeleteTicket, setToggleDeleteTicket] = useState("disabled")
+
+    useEffect(() => {
+        if (auth.currentUser.uid === props.project.userId) {
+            setToggleMarkAsResolved("contained");
+            setToggleDeleteTicket("outlined")
+        }
+    }, [])
 
     const getTicketIndex = () => {
         console.log("called")
@@ -48,11 +59,10 @@ export const DescriptionModal = (props) => {
     const deleteTicket = async (index) => {
         const projectDoc = doc(db, "projects", props.projectId)
 
-        await updateDoc(projectDoc, {
-            tickets: [...excludeTicket(index)]
-        });
-
-        props.getTicketList();
+            await updateDoc(projectDoc, {
+                tickets: [...excludeTicket(index)]
+            });
+            props.getTicketList();
     }
 
     const updateTickets = (index) => {
@@ -65,16 +75,15 @@ export const DescriptionModal = (props) => {
             }
             updatedTickets.push(props.allTickets[i])
         }
-        console.log(updatedTickets)
         return updatedTickets;
     }
 
     const markTicketAsResolved = async (index) => {
         const projectDoc = doc(db, "projects", props.projectId);
-        await updateDoc(projectDoc, {
-            tickets: [...updateTickets(index)]
-        })
-        props.getTicketList();
+            await updateDoc(projectDoc, {
+                tickets: [...updateTickets(index)]
+            })
+            props.getTicketList();
     }
 
     return (<div>
@@ -114,10 +123,11 @@ export const DescriptionModal = (props) => {
                             <Typography>
                                 {"Due: " + props.ticket.due}
                             </Typography>
-                            <Button onClick={() => markTicketAsResolved(getTicketIndex()) } variant="contained" color="success" sx={{mt: 2}}>
+                            <Button variant={toggleMarkAsResolved} onClick={() => markTicketAsResolved(getTicketIndex()) }
+                                    color="success" sx={{mt: 2}}>
                                 Mark as resolved
                             </Button>
-                            <Button onClick={() => deleteTicket(getTicketIndex())} variant="outlined"
+                            <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
                                     color="error"
                                     sx={{mt: 2}}>
                                 Delete Ticket

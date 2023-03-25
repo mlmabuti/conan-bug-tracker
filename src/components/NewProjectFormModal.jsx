@@ -45,7 +45,8 @@ export const NewProjectFormModal = (props) => {
                     due: "",
                     label: "",
                     status: "",
-                }]
+                }],
+                userId: auth?.currentUser?.uid,
             });
         } catch (e) {
             console.error(e)
@@ -75,7 +76,7 @@ export const NewProjectFormModal = (props) => {
                                placeholder="E.g. Richard Hendricks, Bertram Gilfoyle, Jared Dunn"
                                onChange={(e) => {
                         setNewMembers(e.target.value)
-                    }} sx={{my: 2}}/>
+                    }} sx={{mb: 2}}/>
                     <Button fullWidth variant="contained" color="primary" onClick={onSubmitProject}>
                         Submit
                     </Button>
