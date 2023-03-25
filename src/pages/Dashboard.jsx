@@ -3,7 +3,7 @@ import {ProjectsTable} from "../components/ProjectsTable.jsx";
 import {Project} from "./Project.jsx";
 import {useEffect, useState} from "react";
 import {NewProjectFormModal} from "../components/NewProjectFormModal.jsx";
-import {db} from "../firebase-config";
+import {auth, db} from "../firebase-config";
 import {getDocs, collection} from "firebase/firestore";
 
 export const Dashboard = () => {
@@ -14,7 +14,10 @@ export const Dashboard = () => {
     const getProjectList = async () => {
         try {
             const data = await getDocs(projectCollectionRef);
-            const filteredData = data.docs.map((doc) => ({...doc.data(), id: doc.id,}));
+            let filteredData = data.docs.map((doc) => ({...doc.data(), id: doc.id,}));
+            filteredData = filteredData.filter((e) => {
+                return auth.currentUser.uid === e.userId
+            })
             setProjectList(filteredData);
         } catch (e) {
             console.error(e);
