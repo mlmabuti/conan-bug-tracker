@@ -7,10 +7,13 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {getDoc, updateDoc} from "firebase/firestore";
 import {auth} from "../firebase-config.js";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const style = {
     position: 'absolute',
-    width: '40%',
+    width: '30%',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -27,11 +30,20 @@ export const NewTicketFormModal = (props) => {
 
     const [newAssignee, setNewAssignee] = useState("");
     const [newDescription, setNewDescription] = useState("");
-    const [newDue, setNewDue] = useState("");
+    const [newDue, setNewDue] = useState(null);
     const [newLabel, setNewLabel] = useState("");
     const [newPriority, setNewPriority] = useState("");
     const [newTicketTitle, setNewTicketTitle] = useState("");
 
+    const extractDate = (dateTime) => {
+        let temp = dateTime.split(" ");
+        let date = [];
+        for (let i = 0; i < 4; i++) {
+            date.push(temp[i])
+        }
+        const formattedDate = date[2] + " " + date[1] + ", " + date[3] + ". " + date[0].substring(0,3) + ".";
+        return formattedDate;
+    }
 
     const onSubmitTicket = async () => {
         if (newTicketTitle === "") {
@@ -51,7 +63,7 @@ export const NewTicketFormModal = (props) => {
                     ticketAuthor: auth.currentUser.displayName,
                     priority: newPriority,
                     label: newLabel,
-                    due: newDue,
+                    due: extractDate(newDue.toString()),
                     description: newDescription,
                     assignee: newAssignee,
                     status: "Unresolved"
@@ -64,7 +76,7 @@ export const NewTicketFormModal = (props) => {
 
         setNewAssignee("");
         setNewLabel("");
-        setNewDue("");
+        setNewDue(null);
         setNewDescription("");
         setNewTicketTitle("");
 
@@ -95,13 +107,13 @@ export const NewTicketFormModal = (props) => {
                                inputProps={{ maxLength: 256 }}
                                placeholder="The maximum character limit is 256"
                                onChange={(e) => setNewDescription(e.target.value)}
-                               label="Description" sx={{mt: 1}}/>
+                               label="Description" sx={{mt: 2}}/>
                     <TextField fullWidth required label="Assignee" inputProps={{ maxLength: 80 }}
                                placeholder="E.g. Richard Hendricks, Bertram Gilfoyle, Jared Dunn"
                                onChange={(e) => setNewAssignee(e.target.value)}
-                               sx={{mt: 1}}/>
+                               sx={{mt: 2}}/>
 
-                    <FormControl fullWidth  sx={{mt: 2}}>
+                    <FormControl fullWidth sx={{mt: 2}}>
                         <InputLabel id="input-priority-label">Priority* </InputLabel>
                         <Select
                             label="Priority"
@@ -117,15 +129,18 @@ export const NewTicketFormModal = (props) => {
                         </Select>
                     </FormControl>
 
-                    <TextField fullWidth required label="Label" inputProps={{ maxLength: 32 }}
+                    <TextField required label="Label" inputProps={{ maxLength: 32 }}
                                placeholder="E.g. Issue, Bug, Enhancement, Documentation, Optional, and etc." onChange={(e) => setNewLabel(e.target.value)}
-                               sx={{mt: 1}}/>
-                    <TextField fullWidth required label="Due Date" inputProps={{ maxLength: 32 }}
-                               placeholder="E.g. March 25, 2023"
-                               onChange={(e) => setNewDue(e.target.value)}
-                               sx={{mt: 1}}/>
+                               sx={{mt: 2}}/>
 
-                    <Button fullWidth variant="contained" color="primary" sx={{mt: 1}}
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker sx={{mt: 2}} label="Due Date*" value={newDue} onChange={(e) => {
+                            setNewDue(e);
+                        }}
+                        />
+                    </LocalizationProvider>
+
+                    <Button fullWidth variant="contained" color="primary" sx={{mt: 2}}
                             onClick={onSubmitTicket}>
                         Submit
                     </Button>
