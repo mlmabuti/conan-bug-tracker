@@ -41,8 +41,7 @@ export const NewTicketFormModal = (props) => {
         for (let i = 0; i < 4; i++) {
             date.push(temp[i])
         }
-        const formattedDate = date[2] + " " + date[1] + ", " + date[3] + ". " + date[0].substring(0,3) + ".";
-        return formattedDate;
+        return date[2] + " " + date[1] + ", " + date[3] + ". " + date[0].substring(0,3) + ".";
     }
 
     const onSubmitTicket = async () => {

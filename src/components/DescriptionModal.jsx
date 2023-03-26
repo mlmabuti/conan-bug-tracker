@@ -37,10 +37,8 @@ export const DescriptionModal = (props) => {
     }, [])
 
     const getTicketIndex = () => {
-        console.log("called")
         for (let i = 0; i < props.allTickets.length; i++) {
             if (props.ticket === props.allTickets[i]) {
-                console.log("The index is " + i)
                 return i;
             }
         }
@@ -52,7 +50,6 @@ export const DescriptionModal = (props) => {
                 newTickets.push(props.allTickets[i])
             }
         }
-        console.log(newTickets)
         return newTickets;
     }
 
@@ -70,7 +67,6 @@ export const DescriptionModal = (props) => {
 
         for (let i = 0; i < props.allTickets.length; i++) {
             if (i === index) {
-                console.log(props.allTickets[i])
                 props.allTickets[i].status = "Resolved"
             }
             updatedTickets.push(props.allTickets[i])
