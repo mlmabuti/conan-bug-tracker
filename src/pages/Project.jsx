@@ -7,9 +7,9 @@ import {NewTicketFormModal} from "../components/NewTicketFormModal.jsx";
 import {auth, db} from "../firebase-config";
 import {doc, deleteDoc, getDoc} from "firebase/firestore";
 import {DeletePopover} from "../components/DeletePopover.jsx";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 export const Project = (props) => {
-    const [toggleDeleteDisable, setToggleDeleteDisable] = useState("disabled")
     const [toggleDisable, setToggleDisable] = useState("disabled")
     const [showResolved, setShowResolved] = useState(false);
 
@@ -36,8 +36,7 @@ export const Project = (props) => {
 
     useEffect(() => {
         if (auth.currentUser.uid === props.project.userId) {
-            setToggleDisable("contained")
-            setToggleDeleteDisable("text")
+            setToggleDisable("outlined")
         }
         getTicketList()
 
@@ -58,25 +57,35 @@ export const Project = (props) => {
                     <Typography variant="h4">
                         {props.project.title}
                     </Typography>
-                    <DeletePopover toggleDisable={toggleDeleteDisable} deleteProject={deleteProject} project={props.project}/>
                     </Stack>
 
                     <Stack
                         direction="row"
                         spacing={2}>
-                        <Button color="primary" variant="outlined"
+                        <NewTicketFormModal getTicketList={getTicketList} projectRef={projectRef}/>
+
+                        <Button color="info" variant="contained"
                                 onClick={() => showResolved ? setShowResolved(false) : setShowResolved(true)}>
                             {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                         </Button>
-                        <ButtonGroup variant="contained">
 
-                            <NewTicketFormModal toggleDisable={toggleDisable} getTicketList={getTicketList} projectRef={projectRef}/>
+
+                        <ButtonGroup size="small" variant="outlined">
+
+
+                            <DeletePopover toggleDisable={toggleDisable} deleteProject={deleteProject} project={props.project}/>
 
                             <MembersPopover members={props.project.members}/>
 
-                            <Button color="warning" onClick={() => props.chooseProject(null)}>
+                            <Button onClick={getTicketList} >
+                                <RefreshIcon/>
+                            </Button>
+
+                            <Button onClick={() => props.chooseProject(null)}>
                                 <ArrowBackIcon/>
                             </Button>
+
+
                         </ButtonGroup>
                     </Stack>
                 </Stack>

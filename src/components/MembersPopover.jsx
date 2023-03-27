@@ -1,4 +1,4 @@
-import {Button, Popover, Typography} from "@mui/material";
+import {Button, List, Popover, ListItemText, ListItem} from "@mui/material";
 import {PeopleAlt} from "@mui/icons-material";
 import {useState} from "react";
 
@@ -17,7 +17,7 @@ export const MembersPopover = (props) => {
     const id = open ? 'simple-popover' : undefined;
 
     return (<>
-            <Button aria-describedby={id} color="info" onClick={handleClick}>
+            <Button aria-describedby={id} onClick={handleClick}>
                 <PeopleAlt/>
             </Button>
             <Popover
@@ -29,7 +29,15 @@ export const MembersPopover = (props) => {
                     vertical: 'bottom', horizontal: 'left',
                 }}
             >
-                <Typography sx={{p: 2}}>{props.members}</Typography>
+                    <List>
+                        {
+                            props.members.map((e) => (
+                                <ListItem>
+                                <ListItemText primary={e}/>
+                                </ListItem>
+                            ))
+                        }
+                    </List>
             </Popover>
         </>)
 }

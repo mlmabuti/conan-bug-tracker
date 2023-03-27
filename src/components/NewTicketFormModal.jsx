@@ -79,7 +79,7 @@ export const NewTicketFormModal = (props) => {
     }
 
     return (<>
-            <Button onClick={handleOpen} variant={props.toggleDisable}>
+            <Button onClick={handleOpen} variant="outlined" color="primary">
                 <AddCircleIcon/>
             </Button>
 

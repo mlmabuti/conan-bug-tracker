@@ -11,7 +11,7 @@ import {auth} from "../firebase-config.js";
 const style = {
     position: 'absolute',
     width: '40%',
-    top: '35%',
+    top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
@@ -27,16 +27,19 @@ export const NewProjectFormModal = (props) => {
 
     // new project
     const [newProject, setNewProject] = useState("");
-    const [newMembers, setNewMembers] = useState("");
+    const [membersEmail, setMembersEmail] = useState(["","",""]);
 
     const onSubmitProject = async () => {
         if (newProject === "") {
             handleClose();
             return;
         }
+        console.log(membersEmail)
         try {
             await addDoc(props.collectionRef, {
-                title: newProject, author: auth.currentUser.displayName, members: newMembers, tickets: [{
+                title: newProject, author: auth.currentUser.displayName, members: [...membersEmail.filter((e) => e !== ""),
+                    auth.currentUser.email]
+               , tickets: [{
                     ticketTitle: "",
                     ticketAuthor: "",
                     priority: "",
@@ -72,12 +75,26 @@ export const NewProjectFormModal = (props) => {
                                placeholder="The maximum character limit is 32" onChange={(e) => {
                         setNewProject(e.target.value)
                     }} sx={{my: 2}}/>
-                    <TextField required fullWidth label="Members" inputProps={{ maxLength: 80 }}
-                               placeholder="E.g. Richard Hendricks, Bertram Gilfoyle, Jared Dunn"
-                               onChange={(e) => {
-                        setNewMembers(e.target.value)
-                    }} sx={{mb: 2}}/>
-                    <Button fullWidth variant="contained" color="primary" onClick={onSubmitProject}>
+                   <Typography variant="h6" sx={{mb: 2}}>Exact email of each member</Typography>
+
+                    {
+                        membersEmail.map((email, i) => (
+                            <TextField
+                                sx ={{mb: 2}}
+                                key={i}
+                                fullWidth
+                                label={`Email ${i+1} (Optional)`}
+                                placeholder={`member${i+1}@neu.edu.ph`}
+                                value={email}
+                                onChange={(e) => {
+                                    const newMembersEmail = [...membersEmail];
+                                    newMembersEmail[i] = e.target.value;
+                                    setMembersEmail(newMembersEmail);
+                                }}
+                            />
+                        ))
+                    }
+                    <Button sx={{mt:1}} fullWidth variant="contained" color="primary" onClick={onSubmitProject}>
                         Submit
                     </Button>
                 </Box>

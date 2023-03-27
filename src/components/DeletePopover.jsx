@@ -17,8 +17,8 @@ export const DeletePopover = (props) => {
     const id = open ? 'simple-popover' : undefined;
 
     return (<>
-        <Button size="small" disableRipple={true} disableElevation={true} disableFocusRipple={true} color="error" variant={props.toggleDisable} onClick={handleClick}>
-            <DeleteIcon sx={{width: "20px"}}/>
+        <Button variant={props.toggleDisable} onClick={handleClick}>
+            <DeleteIcon/>
         </Button>
 
             <Popover
@@ -36,7 +36,7 @@ export const DeletePopover = (props) => {
                 <Button variant="outlined" sx={{mx:.5}} color="error" onClick={() => props.deleteProject(props.project.id)}>
                     Yes
                 </Button>
-                <Button variant="contained" sx={{mx:.5}} color="success" onClick={handleClose}>
+                <Button variant="contained" sx={{mx:.5}} onClick={handleClose}>
                     No
                 </Button>
                 </Box>

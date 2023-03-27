@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -6,7 +6,6 @@ import Modal from '@mui/material/Modal';
 import {Stack} from "@mui/material";
 import {db} from '../firebase-config';
 import {doc, updateDoc} from "firebase/firestore";
-import {auth} from "../firebase-config";
 
 const style = {
     position: 'absolute',
@@ -26,15 +25,15 @@ export const DescriptionModal = (props) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [toggleMarkAsResolved, setToggleMarkAsResolved] = useState("disabled");
-    const [toggleDeleteTicket, setToggleDeleteTicket] = useState("disabled")
+    const [toggleMarkAsResolved, setToggleMarkAsResolved] = useState("contained");
+    const [toggleDeleteTicket, setToggleDeleteTicket] = useState("outlined")
 
-    useEffect(() => {
-        if (auth.currentUser.uid === props.project.userId) {
-            setToggleMarkAsResolved("contained");
-            setToggleDeleteTicket("outlined")
-        }
-    }, [])
+//    useEffect(() => {
+//        if (auth.currentUser.uid === props.project.userId) {
+//            setToggleMarkAsResolved("contained");
+//            setToggleDeleteTicket("outlined")
+//        }
+//    }, [])
 
     const getTicketIndex = () => {
         for (let i = 0; i < props.allTickets.length; i++) {

@@ -1,10 +1,11 @@
-import {Card, Container, Stack, Typography} from "@mui/material";
+import {Button, Card, Container, Stack, Typography} from "@mui/material";
 import {ProjectsTable} from "../components/ProjectsTable.jsx";
 import {Project} from "./Project.jsx";
 import {useEffect, useState} from "react";
 import {NewProjectFormModal} from "../components/NewProjectFormModal.jsx";
 import {auth, db} from "../firebase-config";
 import {getDocs, collection} from "firebase/firestore";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 export const Dashboard = () => {
     const [chosenProject, chooseProject] = useState(null);
@@ -16,7 +17,7 @@ export const Dashboard = () => {
             const data = await getDocs(projectCollectionRef);
             let filteredData = data.docs.map((doc) => ({...doc.data(), id: doc.id,}));
             filteredData = filteredData.filter((e) => {
-                return auth.currentUser.uid === e.userId
+                return auth.currentUser.uid === e.userId || e.members.includes(auth.currentUser.email)
             })
             setProjectList(filteredData);
         } catch (e) {
@@ -38,8 +39,18 @@ export const Dashboard = () => {
                                sx={{mb: 3}}
                         >
                             <Typography variant="h4">{`Projects`}</Typography>
-                            <NewProjectFormModal collectionRef={projectCollectionRef}
-                                                 getProjectList={getProjectList}/>
+                            <Stack direction="row">
+
+
+
+                                <NewProjectFormModal collectionRef={projectCollectionRef}
+                                                     getProjectList={getProjectList}/>
+
+                                <Button sx={{mx:1}} onClick={getProjectList} color="success" variant="contained">
+                                    <RefreshIcon/>
+                                </Button>
+
+                            </Stack>
                         </Stack>
                         <ProjectsTable projects={projectList} chooseProject={chooseProject}/>
                     </Card>
