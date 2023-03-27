@@ -1,3 +1,4 @@
+# Demo
 ![2023-03-27_16-25-24](https://user-images.githubusercontent.com/72655919/227886291-d85aab42-af39-4d35-a52f-b2a7b0648695.gif)
 
 # Conan Bug Tracker (BETA)
@@ -35,8 +36,6 @@ We are constantly working to improve Conan and add new features. Here are some u
 * Require NEU email: Only allow users with NEU email addresses to sign up for a Conan account.
 * Forgot password: Provide a password recovery mechanism for users who forget their password.
 * UI update: Enhance the user interface to make Conan more user-friendly and visually appealing.
-
-# Demo
 
 # Getting Help
 If you encounter any issues while using Conan or have any feedback or suggestions, please feel free to reach out to us at marjolo.mabuti@neu.edu.ph. We are always happy to help and hear from our users.
