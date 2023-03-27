@@ -36,11 +36,7 @@ export const NewTicketFormModal = (props) => {
     const [newTicketTitle, setNewTicketTitle] = useState("");
 
     const extractDate = (dateTime) => {
-        let temp = dateTime.split(" ");
-        let date = [];
-        for (let i = 0; i < 4; i++) {
-            date.push(temp[i])
-        }
+        const date = dateTime.split(" ");
         return date[2] + " " + date[1] + ", " + date[3] + ". " + date[0].substring(0,3) + ".";
     }
 

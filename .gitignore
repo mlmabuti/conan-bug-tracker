@@ -1,4 +1,12 @@
 src/firebase-config.js
+.firebase/
+.firebaserc
+.github/
+firebase.json
+public/404.html
+public/index.html
+
+
 
 # Logs
 logs

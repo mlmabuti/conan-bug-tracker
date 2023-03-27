@@ -83,7 +83,7 @@ export const DescriptionModal = (props) => {
     }
 
     return (<div>
-            <Button onClick={handleOpen}>{props.ticket.ticketTitle}</Button>
+            <Button size="large" color="info" onClick={handleOpen}>{props.ticket.ticketTitle}</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
