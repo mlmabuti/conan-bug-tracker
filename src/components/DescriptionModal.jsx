@@ -61,12 +61,12 @@ export const DescriptionModal = (props) => {
             props.getTicketList();
     }
 
-    const updateTickets = (index) => {
+    const updateTickets = (index, string) => {
         let updatedTickets = [];
 
         for (let i = 0; i < props.allTickets.length; i++) {
             if (i === index) {
-                props.allTickets[i].status = "Resolved"
+                props.allTickets[i].status = string
             }
             updatedTickets.push(props.allTickets[i])
         }
@@ -76,9 +76,17 @@ export const DescriptionModal = (props) => {
     const markTicketAsResolved = async (index) => {
         const projectDoc = doc(db, "projects", props.projectId);
             await updateDoc(projectDoc, {
-                tickets: [...updateTickets(index)]
+                tickets: [...updateTickets(index, "Resolved")]
             })
             props.getTicketList();
+    }
+
+    const markTicketAsUnresolved= async (index) => {
+        const projectDoc = doc(db, "projects", props.projectId);
+        await updateDoc(projectDoc, {
+            tickets: [...updateTickets(index, "Unresolved")]
+        })
+        props.getTicketList();
     }
 
     return (<div>
@@ -129,6 +137,10 @@ export const DescriptionModal = (props) => {
                             </Button>
                         </> :
                             <>
+                            <Button variant={toggleMarkAsResolved} onClick={() => markTicketAsUnresolved(getTicketIndex()) }
+                                    color="warning" sx={{mt: 2}}>
+                                Mark as Unresolved
+                            </Button>
                             <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
                                     color="error"
                                     sx={{mt: 2}}>
