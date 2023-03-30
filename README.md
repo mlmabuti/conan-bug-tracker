@@ -39,6 +39,9 @@ We are constantly working to improve Conan and add new features. Here are some u
 * Forgot password: Provide a password recovery mechanism for users who forget their password.
 * UI update: Enhance the user interface to make Conan more user-friendly and visually appealing.
 
+# React Component Tree
+![image](https://user-images.githubusercontent.com/72655919/228761674-5b8cacbd-bc64-42a9-9dea-57730ce55f41.png)
+
 # Getting Help
 If you encounter any issues while using Conan or have any feedback or suggestions, please feel free to reach out to us at marjolo.mabuti@neu.edu.ph. We are always happy to help and hear from our users.
 
