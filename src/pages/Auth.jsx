@@ -2,6 +2,7 @@ import {Button, Container, Link, Paper, Stack, TextField, Typography} from "@mui
 import {useState} from "react";
 import {auth, googleProvider} from '../firebase-config';
 import {createUserWithEmailAndPassword, signInWithPopup} from "firebase/auth";
+import GoogleIcon from '@mui/icons-material/Google';
 
 export const Auth = (props) => {
     const [email, setEmail] = useState("");
@@ -46,8 +47,9 @@ export const Auth = (props) => {
 
                     <Stack spacing={1}>
                         <Button disabled variant="contained" onClick={signIn}>Sign in</Button>
-                        <Button color="warning" variant="contained" onClick={signInWithGoogle}>Continue with
-                            Google</Button>
+                        <Button variant="contained" onClick={signInWithGoogle}>
+                            <GoogleIcon sx={{mr: 1}}/>
+                            Continue with Google</Button>
                     </Stack>
 
                     <Typography align="right">
