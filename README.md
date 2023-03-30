@@ -1,5 +1,6 @@
 # Demo
-![2023-03-27_16-25-24](https://user-images.githubusercontent.com/72655919/227886291-d85aab42-af39-4d35-a52f-b2a7b0648695.gif)
+![Demo](https://user-images.githubusercontent.com/72655919/228760146-383d4d50-072a-4357-bbbc-a8bc8d94a335.gif)
+
 
 # Conan Bug Tracker (BETA)
 
@@ -11,10 +12,11 @@ Bug trackers and issue tracking systems are essential tools for software develop
 To get started with Conan, follow these simple steps:
 
 1. Visit the web app [here](https://conan-bug-tracker.web.app/)
-2. Login with Google
-3. Create a new project by specifying the project title and members
+2. Continue with Google
+3. Create a new project by specifying the project title and the exact email of each member (optional)
 4. Create a new ticket by filling up the required fields
-5. Mark a ticket as resolved, delete it, or simply check read its description
+5. Mark a ticket as resolved, delete it, or simply check out its details
+6. View resolved tickets, update resolved tickets to unresolved or delete them
 
 # Working Features
 Conan comes with the following features:
