@@ -1,4 +1,4 @@
-import {Button, Card, Container, Stack, Typography} from "@mui/material";
+import {Button, Card, CircularProgress, Container, Stack, Typography} from "@mui/material";
 import {ProjectsTable} from "../components/ProjectsTable.jsx";
 import {Project} from "./Project.jsx";
 import {useEffect, useState} from "react";
@@ -11,8 +11,10 @@ export const Dashboard = () => {
     const [chosenProject, chooseProject] = useState(null);
 
     const [projectList, setProjectList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const projectCollectionRef = collection(db, "projects");
     const getProjectList = async () => {
+        setIsLoading(true)
         try {
             const data = await getDocs(projectCollectionRef);
             let filteredData = data.docs.map((doc) => ({...doc.data(), id: doc.id,}));
@@ -23,6 +25,7 @@ export const Dashboard = () => {
         } catch (e) {
             console.error(e);
         }
+        setIsLoading(false)
     };
 
     useEffect(() => {
@@ -41,8 +44,6 @@ export const Dashboard = () => {
                             <Typography variant="h4">{`Projects`}</Typography>
                             <Stack direction="row">
 
-
-
                                 <NewProjectFormModal collectionRef={projectCollectionRef}
                                                      getProjectList={getProjectList}/>
 
@@ -52,7 +53,11 @@ export const Dashboard = () => {
 
                             </Stack>
                         </Stack>
+                        {
+                            isLoading ?
+                            <CircularProgress /> :
                         <ProjectsTable projects={projectList} chooseProject={chooseProject}/>
+                        }
                     </Card>
                 </Container>}
         </>)

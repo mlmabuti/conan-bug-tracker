@@ -1,4 +1,4 @@
-import {Button, Container, Stack, Typography, Paper, ButtonGroup,} from "@mui/material";
+import {Button, Container, CircularProgress, Stack, Typography, Paper, ButtonGroup,} from "@mui/material";
 import {TicketsTable} from "../components/TicketsTable"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useEffect, useState} from "react";
@@ -12,11 +12,13 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 export const Project = (props) => {
     const [toggleDisable, setToggleDisable] = useState("disabled")
     const [showResolved, setShowResolved] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const projectRef = doc(db, "projects", props.project.id)
     const [ticketList, setTicketList] = useState([]);
 
     const getTicketList = async () => {
+        setIsLoading(true)
         try {
             const docSnap = await getDoc(projectRef);
             const tickets = docSnap.data().tickets;
@@ -25,6 +27,7 @@ export const Project = (props) => {
         } catch (e) {
             console.error(e);
         }
+        setIsLoading(false)
     };
 
     const deleteProject = async (id) => {
@@ -90,8 +93,11 @@ export const Project = (props) => {
                     </Stack>
                 </Stack>
 
-                {<TicketsTable tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
-                               showResolved={showResolved}/>}
+                {
+                    isLoading ? <CircularProgress/> :
+                    <TicketsTable tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
+                               showResolved={showResolved}/>
+                }
             </Paper>
         </Container>
     </>)
