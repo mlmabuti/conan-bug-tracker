@@ -31,7 +31,7 @@ export const TicketsTable = (props) => {
                 </TableHead>
 
                 <TableBody>
-                    {props.showResolved ? resolvedTickets.map((ticket) => <TableRow key={ticket.ticketTitle}>
+                    {props.showResolved ? resolvedTickets.reverse().map((ticket) => <TableRow key={ticket.ticketTitle}>
                             <TableCell>
                                 <DescriptionModal allTickets={props.tickets} ticket={ticket} project={props.project}
                                                   getTicketList={props.getTicketList} projectId={props.projectId}/>
