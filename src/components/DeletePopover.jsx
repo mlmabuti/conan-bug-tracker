@@ -33,7 +33,7 @@ export const DeletePopover = (props) => {
                 <Box textAlign="center" sx={{p:1}}>
 
                 <Typography sx={{m: 1}}>Are you sure you want to delete this project?</Typography>
-                <Button variant="outlined" sx={{mx:.5}} color="error" onClick={() => props.deleteProject(props.project.id)}>
+                <Button variant="contained" sx={{mx:.5}} color="error" onClick={() => props.deleteProject(props.project.id)}>
                     Yes
                 </Button>
                 <Button variant="contained" sx={{mx:.5}} onClick={handleClose}>
