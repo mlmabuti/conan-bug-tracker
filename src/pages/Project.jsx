@@ -23,7 +23,6 @@ export const Project = (props) => {
             const docSnap = await getDoc(projectRef);
             const tickets = docSnap.data().tickets;
             setTicketList(tickets);
-            console.log(tickets);
         } catch (e) {
             console.error(e);
         }
@@ -78,7 +77,7 @@ export const Project = (props) => {
 
                             <DeletePopover toggleDisable={toggleDisable} deleteProject={deleteProject} project={props.project}/>
 
-                            <MembersPopover members={props.project.members}/>
+                            <MembersPopover project={props.project} projectRef={projectRef} members={props.project.members}/>
 
                             <Button onClick={getTicketList} >
                                 <RefreshIcon/>

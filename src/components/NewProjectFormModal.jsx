@@ -34,7 +34,6 @@ export const NewProjectFormModal = (props) => {
             handleClose();
             return;
         }
-        console.log(membersEmail)
         try {
             await addDoc(props.collectionRef, {
                 title: newProject, author: auth.currentUser.displayName, members: [...membersEmail.filter((e) => e !== ""),

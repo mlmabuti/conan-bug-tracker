@@ -50,7 +50,7 @@ export const Dashboard = () => {
                                 <NewProjectFormModal collectionRef={projectCollectionRef}
                                                      getProjectList={getProjectList}/>
 
-                                <Button sx={{mx:1}} onClick={getProjectList} color="success" variant="contained">
+                                <Button sx={{mx:1}} onClick={getProjectList} variant="outlined">
                                     <RefreshIcon/>
                                 </Button>
 
