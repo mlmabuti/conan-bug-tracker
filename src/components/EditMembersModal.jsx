@@ -28,6 +28,7 @@ export const EditMembersModal = (props) => {
 
     const getMembersList = async () => {
         try {
+            props.getMembersList()
             const docSnap = await getDoc(props.projectRef);
             const members = docSnap.data().members;
             if (members.length > 3){
@@ -76,7 +77,6 @@ export const EditMembersModal = (props) => {
                                 const newMembersEmail = [...membersEmail];
                                 newMembersEmail[i] = e.target.value;
                                 setMembersEmail(newMembersEmail);
-                                console.log(membersEmail)
                             }}
                         />
                     ))

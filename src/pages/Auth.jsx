@@ -12,7 +12,6 @@ export const Auth = (props) => {
     const signIn = async () => {
         try {
             await createUserWithEmailAndPassword(auth, email, password)
-            console.log("logged in as" + auth.currentUser.email)
             props.setLoggedIn(true)
             setIsIncorrect(false);
         } catch (err) {
@@ -24,7 +23,6 @@ export const Auth = (props) => {
     const signInWithGoogle = async () => {
         try {
             await signInWithPopup(auth, googleProvider)
-            console.log("logged in as " + auth.currentUser.email)
             props.setLoggedIn(true)
         } catch (err) {
             console.error(err)

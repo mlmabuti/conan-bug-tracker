@@ -21,7 +21,7 @@ export const MembersPopover = (props) => {
     useEffect(() => {
         setToggleEditMembers(auth.currentUser.uid === props.project.userId ? "outlined" : "disabled" )
         getMembersList()
-    })
+    }, [])
 
     const [anchorEl, setAnchorEl] = useState(null);
 
