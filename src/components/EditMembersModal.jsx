@@ -61,7 +61,7 @@ export const EditMembersModal = (props) => {
             aria-labelledby="modal-modal-title"
         >
             <Box sx={style}>
-                <Typography variant="h6" sx={{mb: 2}}>Email of each member (Max. 3)</Typography>
+                <Typography variant="h6" sx={{mb: 2}}>Email of each member</Typography>
 
                 {
                     membersEmail.map((email, i) => (

@@ -24,8 +24,8 @@ export const Navbar = (props) => {
             </Stack>
 
             <Stack direction="row" alignItems="center" spacing={2}>
-                <Link underline="hover" color="inherit" target="_blank"
-                      href="https://github.com/mlmabuti/conan-bug-tracker">Documentation</Link>
+                <Link target="_blank"
+                      href="https://github.com/mlmabuti/conan-bug-tracker"> Visit our GitHub </Link>
                 <Button variant="outlined" onClick={() => {
                     props.colorMode === 'dark' ? props.setColorMode('light') : props.setColorMode('dark')
                 }}>

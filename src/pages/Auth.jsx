@@ -31,30 +31,23 @@ export const Auth = (props) => {
 
     return (<Container maxWidth="xs">
             <Paper sx={{p: 6, mt: "25%"}} elevation={2}>
-                <Stack spacing={2}>
-                    <Typography variant="h4" sx={{mb: "12px"}} alignSelf="center"> Sign in</Typography>
+                <Stack spacing={3}>
+                    <Typography variant="h5" align="center"> Sign in with Google </Typography>
+                    <Typography variant="subtitle1" align="center" alignSelf="center">
+                        Welcome beta testers! This app is designed to help us track and resolve issues in real-time,
+                        making us more efficient and productive in our group software development projects.
 
-                    {isIncorrect ? <Typography variant="subtitle2" sx={{color: "red"}}>
-                        Invalid email or password. Please try again.
-                    </Typography> : false}
+                        <br/>
+                        <br/>
+                        You may visit our
+                        <Link underline="hover" target="_blank"
+                              href="https://github.com/mlmabuti/conan-bug-tracker"> GitHub repository </Link>
+                        for more information and guidance.
+                    </Typography>
 
-                    <TextField disabled type="email" label="Email"
-                               onChange={(e) => setEmail(e.target.value)}></TextField>
-                    <TextField disabled type="password" label="Password"
-                               onChange={(e) => setPassword(e.target.value)}></TextField>
-
-                    <Stack spacing={1}>
-                        <Button disabled variant="contained" onClick={signIn}>Sign in</Button>
                         <Button variant="contained" onClick={signInWithGoogle}>
                             <GoogleIcon sx={{mr: 1}}/>
                             Continue with Google</Button>
-                    </Stack>
-
-                    <Typography align="right">
-                        <Link>
-                            Forgot your password?
-                        </Link>
-                    </Typography>
                 </Stack>
             </Paper>
         </Container>)
