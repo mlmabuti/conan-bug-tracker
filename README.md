@@ -6,7 +6,7 @@
 
 Bug trackers and issue tracking systems are essential tools for software development projects, yet many CICS students overlook their importance. To address this issue, the Conan project has been developed specifically for students at the College of Informatics and Computer Studies in New Era University. This project is based on a KM research study which aims to help student developers adopt good KM practices by developing a simplified bug tracker for them that is easy to use and get accustomed to. By using Conan, CICS students can improve the overall quality of their software projects and become more effective software developers. This web application mainly took inspiration from the simplicity of GitHub Issues. 
 
-**Currently, Conan is not mobile-responsive.**
+**This app is currently not configured for smartphones or mobile devices. Please use a laptop or desktop computer.**
 
 # How to Use Conan
 To get started with Conan, follow these simple steps:
