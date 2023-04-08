@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import {Stack} from "@mui/material";
 import {db} from '../firebase-config';
 import {doc, updateDoc} from "firebase/firestore";
+import {EditTicketModal} from './EditTicketModal.jsx'
 
 const style = {
     position: 'absolute',
@@ -17,7 +18,6 @@ const style = {
     borderRadius: 1,
     boxShadow: 10,
     p: 4,
-
 };
 
 export const DescriptionModal = (props) => {
@@ -55,10 +55,10 @@ export const DescriptionModal = (props) => {
     const deleteTicket = async (index) => {
         const projectDoc = doc(db, "projects", props.projectId)
 
-            await updateDoc(projectDoc, {
-                tickets: [...excludeTicket(index)]
-            });
-            props.getTicketList();
+        await updateDoc(projectDoc, {
+            tickets: [...excludeTicket(index)]
+        });
+        props.getTicketList();
     }
 
     const updateTickets = (index, string) => {
@@ -75,13 +75,13 @@ export const DescriptionModal = (props) => {
 
     const markTicketAsResolved = async (index) => {
         const projectDoc = doc(db, "projects", props.projectId);
-            await updateDoc(projectDoc, {
-                tickets: [...updateTickets(index, "Resolved")]
-            })
-            props.getTicketList();
+        await updateDoc(projectDoc, {
+            tickets: [...updateTickets(index, "Resolved")]
+        })
+        props.getTicketList();
     }
 
-    const markTicketAsUnresolved= async (index) => {
+    const markTicketAsUnresolved = async (index) => {
         const projectDoc = doc(db, "projects", props.projectId);
         await updateDoc(projectDoc, {
             tickets: [...updateTickets(index, "Unresolved")]
@@ -90,66 +90,72 @@ export const DescriptionModal = (props) => {
     }
 
     return (<div>
-            <Button size="large" color="info" onClick={handleOpen}>{props.ticket.ticketTitle}</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography variant="h5" component="h2">
-                        {props.ticket.ticketTitle}
-                    </Typography>
-                    <Typography sx={{my: 2}}>
-                        {props.ticket.description}
-                    </Typography>
-                    <hr/>
-                    <Stack spacing={1}>
-                        <Typography>
-                            {"Ticket Author: " + props.ticket.ticketAuthor}
-                        </Typography>
-                        <Typography>
-                            {"Assignee: " + props.ticket.assignee}
-                        </Typography>
-                        <Typography>
-                            {"Priority: " + props.ticket.priority}
-                        </Typography>
-                        <Typography>
-                            {"Label: " + props.ticket.label}
-                        </Typography>
-                        <Typography>
-                            {"Status: " + props.ticket.status}
-                        </Typography>
+        <Button size="large" color="info" onClick={handleOpen}>{props.ticket.ticketTitle}</Button>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={style}>
+                <Stack direction="row" spacing={1}>
 
-                        {props.ticket.status !== 'Resolved' ? <>
-                            <Typography>
-                                {"Due: " + props.ticket.due}
-                            </Typography>
-                            <Button variant={toggleMarkAsResolved} onClick={() => markTicketAsResolved(getTicketIndex()) }
-                                    color="success" sx={{mt: 2}}>
-                                Mark as resolved
-                            </Button>
-                            <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
-                                    color="error"
-                                    sx={{mt: 2}}>
-                                Delete Ticket
-                            </Button>
-                        </> :
-                            <>
-                            <Button variant={toggleMarkAsResolved} onClick={() => markTicketAsUnresolved(getTicketIndex()) }
-                                    color="warning" sx={{mt: 2}}>
-                                Mark as Unresolved
-                            </Button>
-                            <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
-                                    color="error"
-                                    sx={{mt: 2}}>
-                                Delete Ticket
-                            </Button>
-                            </>
-                        }
-                    </Stack>
-                </Box>
-            </Modal>
-        </div>);
+                <Typography variant="h5" component="h2">
+                    {props.ticket.ticketTitle}
+                </Typography>
+                    <EditTicketModal ticket={props.ticket} getTicketList={props.getTicketList} allTickets={props.allTickets} projectId={props.projectId} />
+                </Stack>
+
+                <Typography sx={{my: 2}}>
+                    {props.ticket.description}
+                </Typography>
+                <hr/>
+                <Stack spacing={1}>
+                    <Typography>
+                        {"Ticket Author: " + props.ticket.ticketAuthor}
+                    </Typography>
+                    <Typography>
+                        {"Assignee: " + props.ticket.assignee}
+                    </Typography>
+                    <Typography>
+                        {"Priority: " + props.ticket.priority}
+                    </Typography>
+                    <Typography>
+                        {"Label: " + props.ticket.label}
+                    </Typography>
+                    <Typography>
+                        {"Status: " + props.ticket.status}
+                    </Typography>
+
+                    {props.ticket.status !== 'Resolved' ? <>
+                        <Typography>
+                            {"Due: " + props.ticket.due}
+                        </Typography>
+                        <Button variant={toggleMarkAsResolved} onClick={() => markTicketAsResolved(getTicketIndex())}
+                                color="success" sx={{mt: 2}}>
+                            Mark as resolved
+                        </Button>
+                        <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
+                                color="error"
+                                sx={{mt: 2}}>
+                            Delete Ticket
+                        </Button>
+                    </>
+                        :
+                        <>
+                        <Button variant={toggleMarkAsResolved}
+                                onClick={() => markTicketAsUnresolved(getTicketIndex())}
+                                color="warning" sx={{mt: 2}}>
+                            Mark as Unresolved
+                        </Button>
+                        <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
+                                color="error"
+                                sx={{mt: 2}}>
+                            Delete Ticket
+                        </Button>
+                    </>}
+                </Stack>
+            </Box>
+        </Modal>
+    </div>);
 }

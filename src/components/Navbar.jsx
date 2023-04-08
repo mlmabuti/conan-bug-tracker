@@ -7,7 +7,6 @@ export const Navbar = (props) => {
         try {
             await signOut(auth)
             props.setLoggedIn(false)
-            console.log("logged out")
         } catch (err) {
             console.error(err)
         }
