@@ -52,7 +52,7 @@ export const MembersPopover = (props) => {
                     <List>
                         {
                             membersList.map((e) => (
-                                <ListItem>
+                                <ListItem key={e}>
                                 <ListItemText primary={e}/>
                                 </ListItem>
                             ))

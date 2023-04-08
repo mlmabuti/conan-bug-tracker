@@ -61,7 +61,7 @@ export const EditMembersModal = (props) => {
             aria-labelledby="modal-modal-title"
         >
             <Box sx={style}>
-                <Typography variant="h6" sx={{mb: 2}}>Email of each member (Max. 4)</Typography>
+                <Typography variant="h6" sx={{mb: 2}}>Email of each member (Max. 3)</Typography>
 
                 {
                     membersEmail.map((email, i) => (
@@ -69,7 +69,6 @@ export const EditMembersModal = (props) => {
                             sx ={{mb: 2}}
                             key={i}
                             fullWidth
-                            defaultValue={email}
                             value={email}
                             label={`Email ${i+1}`}
                             placeholder={`member${i+1}@neu.edu.ph`}
