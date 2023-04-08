@@ -23,24 +23,31 @@ Conan comes with the following features:
 
 * Light and Dark mode: Choose between a light or dark theme for your user interface.
 * Sign in with Google: Login to Conan using your Google account.
+* Add members: You can add members by specifying their email.
 * Create new project: Create a new project and add members to it.
 * Create new ticket: Add a description of the bug to create a new ticket.
 * Delete ticket: Remove a ticket from the project.
 * Update ticket status: Mark a ticket as resolved or unresolved.
+* Edit ticket: You can edit the ticket title, description, label, and etc.
 * Show resolved tickets/unresolved tickets: Filter tickets based on their status.
 * Delete project: Remove a project.
 
 # Future Updates
 We are constantly working to improve Conan and add new features. Here are some updates that we plan to roll out in the future:
 
-* Add or share the project with project members: Allow project members to collaborate on a project and track bugs together.
+* Comment section: Allow members to comment on a ticket.
 * Separate login and sign up page: Provide a separate page for users to sign up for a Conan account.
 * Require NEU email: Only allow users with NEU email addresses to sign up for a Conan account.
 * Forgot password: Provide a password recovery mechanism for users who forget their password.
 * UI update: Enhance the user interface to make Conan more user-friendly and visually appealing.
+* Code refactoring: Make the code more modular and reusable.
 
 # React Component Tree
-![image](https://user-images.githubusercontent.com/72655919/228761674-5b8cacbd-bc64-42a9-9dea-57730ce55f41.png)
+<img width="2048" alt="component-tree" src="https://user-images.githubusercontent.com/72655919/230730939-2d721747-5961-4b25-83b8-adb2855075bc.png">
+
+# Visualized JSON 
+<img width="1184" alt="json-architecture" src="https://user-images.githubusercontent.com/72655919/230731090-2a950b91-9d0c-40b0-80d8-f92915703569.png">
+
 
 # Getting Help
 If you encounter any issues while using Conan or have any feedback or suggestions, please feel free to reach out to us at marjolo.mabuti@neu.edu.ph. We are always happy to help and hear from our users.
