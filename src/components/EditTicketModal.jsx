@@ -7,6 +7,8 @@ import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/materia
 import {doc, updateDoc} from "firebase/firestore";
 import {db} from "../firebase-config.js";
 
+const currentDate = new Date();
+
 const style = {
     position: 'absolute',
     width: '40%',
@@ -50,6 +52,8 @@ export const EditTicketModal = (props) => {
                 props.allTickets[i].label = newLabel;
                 props.allTickets[i].priority = newPriority;
                 props.allTickets[i].ticketTitle = newTicketTitle;
+                props.allTickets[i].lastModified = currentDate.toLocaleString();
+                props.allTickets[i].lastModifiedBy = props.currentUser;
             }
             updatedTickets.push(props.allTickets[i])
         }

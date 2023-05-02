@@ -9,6 +9,10 @@ import {doc, deleteDoc, getDoc} from "firebase/firestore";
 import {DeletePopover} from "../components/DeletePopover.jsx";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
+const date = new Date();
+
+console.log(date.toLocaleString())
+
 export const Project = (props) => {
     const [toggleDisable, setToggleDisable] = useState("disabled")
     const [showResolved, setShowResolved] = useState(false);
@@ -40,12 +44,13 @@ export const Project = (props) => {
         if (auth.currentUser.uid === props.project.userId) {
             setToggleDisable("outlined")
         }
+console.log(date.toLocaleString())
         getTicketList()
 
     }, [])
 
     return (<>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
             <Paper sx={{p: 4, m: 6}}>
                 <Stack
                     sx={{mb: 3}}
@@ -64,7 +69,7 @@ export const Project = (props) => {
                     <Stack
                         direction="row"
                         spacing={2}>
-                        <NewTicketFormModal getTicketList={getTicketList} projectRef={projectRef}/>
+                        <NewTicketFormModal currentUser={auth.currentUser.displayName} getTicketList={getTicketList} projectRef={projectRef}/>
 
                         <Button color="info" variant="contained"
                                 onClick={() => showResolved ? setShowResolved(false) : setShowResolved(true)}>
@@ -94,7 +99,7 @@ export const Project = (props) => {
 
                 {
                     isLoading ? <CircularProgress/> :
-                    <TicketsTable tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
+                    <TicketsTable currentUser={auth.currentUser.displayName} tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
                                showResolved={showResolved}/>
                 }
             </Paper>

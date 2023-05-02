@@ -27,13 +27,18 @@ export const TicketsTable = (props) => {
                                 Assignee
                             </Typography>
                         </TableCell>
+                        <TableCell>
+                            <Typography variant="h6">
+                                Last Modified
+                            </Typography>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
 
                 <TableBody>
                     {props.showResolved ? resolvedTickets.reverse().map((ticket) => <TableRow key={ticket.ticketTitle}>
                             <TableCell>
-                                <DescriptionModal allTickets={props.tickets} ticket={ticket} project={props.project}
+                                <DescriptionModal currentUser={props.currentUser} allTickets={props.tickets} ticket={ticket} project={props.project}
                                                   getTicketList={props.getTicketList} projectId={props.projectId}/>
                             </TableCell>
                             <TableCell>
@@ -42,11 +47,14 @@ export const TicketsTable = (props) => {
                             <TableCell>
                                 <Typography>{ticket.assignee}</Typography>
                             </TableCell>
+                            <TableCell>
+                                <Typography>{ticket.lastModified}</Typography>
+                            </TableCell>
                         </TableRow>) :
 
                         unresolvedTickets.map((ticket) => <TableRow key={ticket.ticketTitle}>
                             <TableCell>
-                                <DescriptionModal project={props.project} allTickets={props.tickets} getTicketList={props.getTicketList}
+                                <DescriptionModal currentUser={props.currentUser} project={props.project} allTickets={props.tickets} getTicketList={props.getTicketList}
                                                   tickets={unresolvedTickets} ticket={ticket}
                                                   projectId={props.projectId}/>
                             </TableCell>
@@ -55,6 +63,9 @@ export const TicketsTable = (props) => {
                             </TableCell>
                             <TableCell>
                                 <Typography>{ticket.assignee}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography>{ticket.lastModified}</Typography>
                             </TableCell>
                         </TableRow>)}
                 </TableBody>

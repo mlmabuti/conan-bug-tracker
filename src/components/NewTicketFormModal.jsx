@@ -11,6 +11,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+const currentDate = new Date();
+
 const style = {
     position: 'absolute',
     width: '30%',
@@ -61,7 +63,9 @@ export const NewTicketFormModal = (props) => {
                     due: extractDate(newDue.toString()),
                     description: newDescription,
                     assignee: newAssignee,
-                    status: "Unresolved"
+                    status: "Unresolved",
+                    lastModified: currentDate.toLocaleString(),
+                    lastModifiedBy: props.currentUser,
                 }]
             });
         } catch (e) {
