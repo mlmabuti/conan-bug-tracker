@@ -38,7 +38,7 @@ export const TicketsTable = (props) => {
                 <TableBody>
                     {props.showResolved ? resolvedTickets.reverse().map((ticket) => <TableRow key={ticket.ticketTitle}>
                             <TableCell>
-                                <DescriptionModal currentUser={props.currentUser} allTickets={props.tickets} ticket={ticket} project={props.project}
+                                <DescriptionModal getProgress={props.getProgress} currentUser={props.currentUser} allTickets={props.tickets} ticket={ticket} project={props.project}
                                                   getTicketList={props.getTicketList} projectId={props.projectId}/>
                             </TableCell>
                             <TableCell>
@@ -54,7 +54,7 @@ export const TicketsTable = (props) => {
 
                         unresolvedTickets.map((ticket) => <TableRow key={ticket.ticketTitle}>
                             <TableCell>
-                                <DescriptionModal currentUser={props.currentUser} project={props.project} allTickets={props.tickets} getTicketList={props.getTicketList}
+                                <DescriptionModal onTicketStatusChange={props.onTicketStatusChange} getProgress={props.getProgress} currentUser={props.currentUser} project={props.project} allTickets={props.tickets} getTicketList={props.getTicketList}
                                                   tickets={unresolvedTickets} ticket={ticket}
                                                   projectId={props.projectId}/>
                             </TableCell>

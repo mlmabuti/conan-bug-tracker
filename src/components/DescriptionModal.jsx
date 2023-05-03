@@ -8,6 +8,8 @@ import {db} from '../firebase-config';
 import {doc, updateDoc} from "firebase/firestore";
 import {EditTicketModal} from './EditTicketModal.jsx'
 
+const currentDate = new Date();
+
 const style = {
     position: 'absolute',
     width: '40%',
@@ -66,10 +68,13 @@ export const DescriptionModal = (props) => {
 
         for (let i = 0; i < props.allTickets.length; i++) {
             if (i === index) {
-                props.allTickets[i].status = string
+                props.allTickets[i].status = string;
+                props.allTickets[i].lastModifiedBy = props.currentUser;
+                props.allTickets[i].lastModified = currentDate.toLocaleString();
             }
             updatedTickets.push(props.allTickets[i])
         }
+        props.getProgress();
         return updatedTickets;
     }
 
