@@ -8,23 +8,8 @@ import {auth, db} from "../firebase-config";
 import {doc, deleteDoc, getDoc} from "firebase/firestore";
 import {DeletePopover} from "../components/DeletePopover.jsx";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import LinearProgressWithLabel from "../components/LinearProgressWithLabel.jsx";
 
-const date = new Date();
-
-function LinearProgressWithLabel(props) {
-    return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ width: '100%', mr: 1 }}>
-                <LinearProgress variant="determinate" {...props} />
-            </Box>
-            <Box sx={{ minWidth: 35 }}>
-                <Typography variant="body2" color="text.secondary">{`${Math.round(
-                    props.value,
-                )}%`}</Typography>
-            </Box>
-        </Box>
-    );
-}
 
 export const Project = (props) => {
     const [toggleDisable, setToggleDisable] = useState("disabled")
@@ -33,43 +18,21 @@ export const Project = (props) => {
 
     const projectRef = doc(db, "projects", props.project.id)
     const [ticketList, setTicketList] = useState([]);
-
     const [progress, setProgress] = useState(0);
-    const [tickets, setTickets] = useState(props.project.tickets)
-
-    const countResolved = () => {
-        let ctr = 0;
-
-        for (let i = 0; i < tickets.length; i++) {
-            if (tickets[i].status === "Resolved") {
-                ctr++;
-            }
-        }
-        return ctr;
-    }
-
-    const [resolved, setResolved] = useState(countResolved());
 
     const getTicketList = async () => {
         setIsLoading(true)
-        getProgress()
         try {
             const docSnap = await getDoc(projectRef);
             const tickets = docSnap.data().tickets;
             setTicketList(tickets);
-            setTickets(tickets)
         } catch (e) {
             console.error(e);
         }
+        const resolved = ticketList.filter((ticket) => ticket.status === "Resolved")
+        setProgress(resolved.length/ticketList.length*100);
         setIsLoading(false)
     };
-
-    const getProgress = () => {
-        setResolved(countResolved())
-        console.log(resolved)
-        console.log("called")
-        setProgress(resolved / tickets.length * 100);
-    }
 
     const deleteProject = async (id) => {
         const projectDoc = doc(db, "projects", id);
@@ -89,14 +52,13 @@ export const Project = (props) => {
         <Container maxWidth="xl">
             <Paper sx={{p: 4, m: 6}}>
 
-                <LinearProgressWithLabel sx={{mb:4, mt:3.5}} value={progress} />
+                <LinearProgressWithLabel sx={{mb:4, mt:3.5}} value={progress} getTicketList={getTicketList} />
 
                 <Stack
                     sx={{mb: 3}}
                     direction="row"
                     justifyContent="space-between"
                 >
-
 
                     <Stack
                         direction="row"
@@ -137,7 +99,7 @@ export const Project = (props) => {
 
                 {
                     isLoading ? <CircularProgress/> :
-                    <TicketsTable getProgress={getProgress} currentUser={auth.currentUser.displayName} tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
+                    <TicketsTable currentUser={auth.currentUser.displayName} tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
                                showResolved={showResolved}/>
                 }
             </Paper>

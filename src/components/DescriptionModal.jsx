@@ -74,7 +74,7 @@ export const DescriptionModal = (props) => {
             }
             updatedTickets.push(props.allTickets[i])
         }
-        props.getProgress();
+        props.getTicketList();
         return updatedTickets;
     }
 
@@ -83,7 +83,6 @@ export const DescriptionModal = (props) => {
         await updateDoc(projectDoc, {
             tickets: [...updateTickets(index, "Resolved")]
         })
-        props.getTicketList();
     }
 
     const markTicketAsUnresolved = async (index) => {
@@ -91,7 +90,6 @@ export const DescriptionModal = (props) => {
         await updateDoc(projectDoc, {
             tickets: [...updateTickets(index, "Unresolved")]
         })
-        props.getTicketList();
     }
 
     return (<div>
