@@ -9,17 +9,6 @@ export const Auth = (props) => {
     const [password, setPassword] = useState("");
     const [isIncorrect, setIsIncorrect] = useState(false);
 
-    const signIn = async () => {
-        try {
-            await createUserWithEmailAndPassword(auth, email, password)
-            props.setLoggedIn(true)
-            setIsIncorrect(false);
-        } catch (err) {
-            console.error(err)
-            setIsIncorrect(true);
-        }
-    }
-
     const signInWithGoogle = async () => {
         try {
             await signInWithPopup(auth, googleProvider)
@@ -32,28 +21,18 @@ export const Auth = (props) => {
     return (<Container maxWidth="xs">
             <Paper sx={{p: 6, mt: "25%"}} elevation={2}>
 		    <Stack spacing={2}>
-                    <Typography variant="h4" sx={{mb: "12px"}} alignSelf="center"> Sign in</Typography>
-
-                    {isIncorrect ? <Typography variant="subtitle2" sx={{color: "red"}}>
-                        Invalid email or password. Please try again.
-                    </Typography> : false}
-
-                    <TextField disabled type="email" label="Email"
-                               onChange={(e) => setEmail(e.target.value)}></TextField>
-                    <TextField disabled type="password" label="Password"
-                               onChange={(e) => setPassword(e.target.value)}></TextField>
+                    <Typography variant="h4" alignSelf="center">Sign in</Typography>
+                    <center>
+                        <Typography variant="body" sx={{mb: "12px"}} alignSelf="center">Welcome to Conan, this app aims to introduce bug tracking to students in the CICS. <br/> <br/>
+                            It is currently under development as part of a research study. As such, we welcome your feedback and suggestions to help us improve the app.
+                        </Typography>
+                    </center>
 
                     <Stack spacing={1}>
-                        <Button disabled variant="contained" onClick={signIn}>Sign in</Button>
                         <Button variant="contained" onClick={signInWithGoogle}>Continue with
                             Google</Button>
                     </Stack>
 
-                    <Typography align="right">
-                        <Link>
-                            Forgot your password?
-                        </Link>
-                    </Typography>
                 </Stack>
             </Paper>
         </Container>)

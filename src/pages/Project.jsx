@@ -61,13 +61,13 @@ export const Project = (props) => {
                     <Typography sx={{mt:1}} variant="h4">
                         {props.project.title}
                     </Typography>
-                        <TextField sx={{ml: 2}} placeholder={"Search"} onChange={(c) => {
-                            setSearch(c.target.value)
-                        }} ></TextField>
                     </Stack>
                     <Stack
                         direction="row"
                         spacing={2}>
+                        <TextField sx={{ml: 2}} placeholder={"Search"} onChange={(c) => {
+                            setSearch(c.target.value)
+                        }} ></TextField>
                         <NewTicketFormModal currentUser={auth.currentUser.displayName} getTicketList={getTicketList} projectRef={projectRef}/>
                         <Button color="info" variant="contained"
                                 onClick={() => showResolved ? setShowResolved(false) : setShowResolved(true)}>
