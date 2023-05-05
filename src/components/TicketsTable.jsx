@@ -15,7 +15,9 @@ export const TicketsTable = (props) => {
                     ticket.assignee.toLowerCase().includes(props.search.toLowerCase()) ||
                     ticket.due.toLowerCase().includes(props.search.toLowerCase()) ||
                     ticket.label.toLowerCase().includes(props.search.toLowerCase()) ||
-                    ticket.ticketAuthor.toLowerCase().includes(props.search.toLowerCase())
+                    ticket.ticketAuthor.toLowerCase().includes(props.search.toLowerCase()) ||
+                    ticket.lastModified.toLowerCase().includes(props.search.toLowerCase())
+
             })
             const filteredUnresolvedTickets = unresolvedTickets.filter((ticket) => {
                 return ticket.ticketTitle.toLowerCase().includes(props.search.toLowerCase()) ||
@@ -23,7 +25,8 @@ export const TicketsTable = (props) => {
                     ticket.assignee.toLowerCase().includes(props.search.toLowerCase()) ||
                     ticket.due.toLowerCase().includes(props.search.toLowerCase()) ||
                     ticket.label.toLowerCase().includes(props.search.toLowerCase()) ||
-                    ticket.ticketAuthor.toLowerCase().includes(props.search.toLowerCase())
+                    ticket.ticketAuthor.toLowerCase().includes(props.search.toLowerCase()) ||
+                    ticket.lastModified.toLowerCase().includes(props.search.toLowerCase())
             })
 
             if (props.search && props.showResolved) {
