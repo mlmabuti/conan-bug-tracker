@@ -10,10 +10,10 @@ export const TicketsTable = (props) => {
     try {
         if (props.search) {
             const filteredResolvedTickets = resolvedTickets.filter((ticket) => {
-                return ticket.ticketTitle.includes(props.search)
+                return ticket.ticketTitle.toLowerCase().includes(props.search.toLowerCase())
             })
             const filteredUnresolvedTickets = unresolvedTickets.filter((ticket) => {
-                return ticket.ticketTitle.includes(props.search)
+                return ticket.ticketTitle.toLowerCase().includes(props.search.toLowerCase())
             })
 
             if (props.search && props.showResolved) {
