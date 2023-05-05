@@ -11,7 +11,7 @@ export default function LinearProgressWithLabel(props) {
             </Box>
             <Box sx={{ minWidth: 35 }}>
                 {
-                    props.value ? <Typography variant="body2" color="text.secondary">{`${Math.round(
+                    props.value || props.value === 0 ? <Typography variant="body2" color="text.secondary">{`${Math.round(
                         props.value,
                     )}%`}</Typography> :
                         <Typography variant="body2" color="text.secondary">Refresh</Typography>

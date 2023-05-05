@@ -5,17 +5,41 @@ import {
 import {DescriptionModal} from "./DescriptionModal.jsx";
 
 export const TicketsTable = (props) => {
-    const resolvedTickets = props.tickets.filter(ticket => ticket.status === 'Resolved');
-    const unresolvedTickets = props.tickets.filter(ticket => ticket.status !== 'Resolved' && ticket.ticketTitle);
+    let resolvedTickets = props.tickets.filter(ticket => ticket.status === 'Resolved');
+    let unresolvedTickets = props.tickets.filter(ticket => ticket.status !== 'Resolved' && ticket.ticketTitle);
+    try {
+        if (props.search) {
+            const filteredResolvedTickets = resolvedTickets.filter((ticket) => {
+                return ticket.ticketTitle.includes(props.search)
+            })
+            const filteredUnresolvedTickets = unresolvedTickets.filter((ticket) => {
+                return ticket.ticketTitle.includes(props.search)
+            })
+
+            if (props.search && props.showResolved) {
+                resolvedTickets = filteredResolvedTickets;
+            } else if (props.search && !props.showResolved) {
+                unresolvedTickets = filteredUnresolvedTickets;
+            }
+        }
+    } catch (e) {
+        console.error(e);
+    }
 
     return (<TableContainer component={Paper}>
             <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>
+                            {
+                                props.showResolved ?
                             <Typography variant="h6" sx={{px: 1}}>
-                                Ticket Name
+                                Resolved Tickets
+                            </Typography> :
+                            <Typography variant="h6" sx={{px: 1}}>
+                                Unresolved Tickets
                             </Typography>
+                            }
                         </TableCell>
                         <TableCell>
                             <Typography variant="h6">
@@ -36,7 +60,8 @@ export const TicketsTable = (props) => {
                 </TableHead>
 
                 <TableBody>
-                    {props.showResolved ? resolvedTickets.reverse().map((ticket) => <TableRow key={ticket.ticketTitle}>
+                    {props.showResolved ? resolvedTickets.reverse().map((ticket) =>
+                            <TableRow key={ticket.ticketTitle}>
                             <TableCell>
                                 <DescriptionModal currentUser={props.currentUser} allTickets={props.tickets} ticket={ticket} project={props.project}
                                                   getTicketList={props.getTicketList} projectId={props.projectId}/>
@@ -50,9 +75,12 @@ export const TicketsTable = (props) => {
                             <TableCell>
                                 <Typography>{ticket.lastModified}</Typography>
                             </TableCell>
-                        </TableRow>) :
-
-                        unresolvedTickets.map((ticket) => <TableRow key={ticket.ticketTitle}>
+                        </TableRow>
+                        ) :
+                        unresolvedTickets.sort((a, b) => {
+                            const priorities = ['Very High', 'High', 'Medium', 'Low'];
+                            return priorities.indexOf(b.priority) - priorities.indexOf(a.priority);
+                        }).reverse().map((ticket) => <TableRow key={ticket.ticketTitle}>
                             <TableCell>
                                 <DescriptionModal onTicketStatusChange={props.onTicketStatusChange} currentUser={props.currentUser} project={props.project} allTickets={props.tickets} getTicketList={props.getTicketList}
                                                   tickets={unresolvedTickets} ticket={ticket}

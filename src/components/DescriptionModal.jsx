@@ -30,13 +30,6 @@ export const DescriptionModal = (props) => {
     const [toggleMarkAsResolved, setToggleMarkAsResolved] = useState("contained");
     const [toggleDeleteTicket, setToggleDeleteTicket] = useState("outlined")
 
-//    useEffect(() => {
-//        if (auth.currentUser.uid === props.project.userId) {
-//            setToggleMarkAsResolved("contained");
-//            setToggleDeleteTicket("outlined")
-//        }
-//    }, [])
-
     const getTicketIndex = () => {
         for (let i = 0; i < props.allTickets.length; i++) {
             if (props.ticket === props.allTickets[i]) {

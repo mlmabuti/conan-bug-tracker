@@ -1,4 +1,4 @@
-import {Button, Box, Container, CircularProgress, Stack, Typography, Paper, ButtonGroup, LinearProgress} from "@mui/material";
+import {Button, Container, CircularProgress, Stack, Typography, Paper, ButtonGroup, TextField} from "@mui/material";
 import {TicketsTable} from "../components/TicketsTable"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useEffect, useState} from "react";
@@ -10,15 +10,14 @@ import {DeletePopover} from "../components/DeletePopover.jsx";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import LinearProgressWithLabel from "../components/LinearProgressWithLabel.jsx";
 
-
 export const Project = (props) => {
     const [toggleDisable, setToggleDisable] = useState("disabled")
     const [showResolved, setShowResolved] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
     const projectRef = doc(db, "projects", props.project.id)
     const [ticketList, setTicketList] = useState([]);
     const [progress, setProgress] = useState(0);
+    const [search, setSearch] = useState("");
 
     const getTicketList = async () => {
         setIsLoading(true)
@@ -51,57 +50,45 @@ export const Project = (props) => {
     return (<>
         <Container maxWidth="xl">
             <Paper sx={{p: 4, m: 6}}>
-
-                <LinearProgressWithLabel sx={{mb:4, mt:3.5}} value={progress} getTicketList={getTicketList} />
-
                 <Stack
                     sx={{mb: 3}}
                     direction="row"
                     justifyContent="space-between"
                 >
-
                     <Stack
                         direction="row"
                         spacing={0}>
-                    <Typography variant="h4">
+                    <Typography sx={{mt:1}} variant="h4">
                         {props.project.title}
                     </Typography>
+                        <TextField sx={{ml: 2}} placeholder={"Search"} onChange={(c) => {
+                            setSearch(c.target.value)
+                        }} ></TextField>
                     </Stack>
-
                     <Stack
                         direction="row"
                         spacing={2}>
                         <NewTicketFormModal currentUser={auth.currentUser.displayName} getTicketList={getTicketList} projectRef={projectRef}/>
-
                         <Button color="info" variant="contained"
                                 onClick={() => showResolved ? setShowResolved(false) : setShowResolved(true)}>
                             {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                         </Button>
-
                         <ButtonGroup size="small" variant="outlined">
-
                             <DeletePopover toggleDisable={toggleDisable} deleteProject={deleteProject} project={props.project}/>
-
                             <MembersPopover project={props.project} projectRef={projectRef} members={props.project.members}/>
-
                             <Button onClick={getTicketList} >
                                 <RefreshIcon/>
                             </Button>
-
                             <Button onClick={() => props.chooseProject(null)}>
                                 <ArrowBackIcon/>
                             </Button>
-
-
                         </ButtonGroup>
                     </Stack>
                 </Stack>
-
-                {
-                    isLoading ? <CircularProgress/> :
-                    <TicketsTable currentUser={auth.currentUser.displayName} tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
-                               showResolved={showResolved}/>
-                }
+                <LinearProgressWithLabel value={progress} getTicketList={getTicketList} />
+                    { isLoading ? <CircularProgress/> :
+                        <TicketsTable currentUser={auth.currentUser.displayName} tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
+                                   showResolved={showResolved} search={search}/> }
             </Paper>
         </Container>
     </>)

@@ -25,7 +25,6 @@ export const EditTicketModal = (props) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     const [newAssignee, setNewAssignee] = useState(props.ticket.assignee);
     const [newDescription, setNewDescription] = useState(props.ticket.description);
     const [newDue, setNewDue] = useState(props.ticket.due);
@@ -81,7 +80,6 @@ export const EditTicketModal = (props) => {
         setNewDue(null);
         setNewDescription("");
         setNewTicketTitle("");
-
         handleClose();
     }
 
