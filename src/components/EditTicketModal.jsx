@@ -60,7 +60,7 @@ export const EditTicketModal = (props) => {
                 props.allTickets[i].priority = newPriority;
                 props.allTickets[i].ticketTitle = newTicketTitle;
                 props.allTickets[i].lastModified = currentDate.toLocaleString();
-                props.allTickets[i].lastModifiedBy = getUsernameFromEmail(auth.currentUser.email)
+                props.allTickets[i].lastModifiedBy = getUsernameFromEmail(auth.currentUser.email);
             }
             updatedTickets.push(props.allTickets[i])
         }

@@ -75,6 +75,7 @@ export const NewTicketFormModal = (props) => {
                     status: "Unresolved",
                     lastModified: currentDate.toLocaleString(),
                     lastModifiedBy: getUsernameFromEmail(auth.currentUser.email),
+                    ticketId: oldTickets.length+1,
                 }]
             });
         } catch (e) {
@@ -116,27 +117,24 @@ export const NewTicketFormModal = (props) => {
                                onChange={(e) => setNewDescription(e.target.value)}
                                label="Description" sx={{mt: 2}}/>
 
-                    <FormControl fullWidth sx={{mt: 2}}>
-                        <InputLabel id="input-assignee-label">Assignee</InputLabel>
-                        <Select
-                            label="Assignee"
-                            labelId="input-assignee-label"
-                            id="input-assignee"
-                            value={newAssignee}
-                            onChange={(e) => setNewAssignee(e.target.value)}
-                        >
-                            {
-                            props.members.map((m) => (
-                                <MenuItem value={m.substring(0, m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
-                                    return c.toUpperCase();
-                                }).replace(/\./g, " ")}>{m.substring(0,m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
-                                    // convert the first letter of each word to uppercase
-                                    return c.toUpperCase();
-                                }).replace(/\./g, " ")}</MenuItem>
-                            ))
-                        }
-                        </Select>
-                    </FormControl>
+                        <FormControl fullWidth sx={{mt: 2}}>
+                            <InputLabel id="input-label-label">Label </InputLabel>
+                            <Select
+                                label="Label"
+                                labelId="input-label-label"
+                                id="input-label"
+                                value={newLabel}
+                                onChange={(e) => setNewLabel(e.target.value)}
+                            >
+                                <MenuItem value={"Issue"}>Issue</MenuItem>
+                                <MenuItem value={"Enhancement"}>Enhancement</MenuItem>
+                                <MenuItem value={"Task"}>Task</MenuItem>
+                                <MenuItem value={"Documentation"}>Documentation</MenuItem>
+                                <MenuItem value={"Optional"}>Optional</MenuItem>
+                                <MenuItem value={"Others"}>Others</MenuItem>
+                            </Select>
+                        </FormControl>
+
 
                     <FormControl fullWidth sx={{mt: 2}}>
                         <InputLabel id="input-priority-label">Priority* </InputLabel>
@@ -154,9 +152,27 @@ export const NewTicketFormModal = (props) => {
                         </Select>
                     </FormControl>
 
-                    <TextField required label="Label" inputProps={{ maxLength: 32 }}
-                               placeholder="E.g. Issue, Bug, Enhancement, Documentation, Optional, and etc." onChange={(e) => setNewLabel(e.target.value)}
-                               sx={{mt: 2}}/>
+                        <FormControl fullWidth sx={{mt: 2}}>
+                            <InputLabel id="input-assignee-label">Assignee</InputLabel>
+                            <Select
+                                label="Assignee"
+                                labelId="input-assignee-label"
+                                id="input-assignee"
+                                value={newAssignee}
+                                onChange={(e) => setNewAssignee(e.target.value)}
+                            >
+                                {
+                                    props.members.map((m) => (
+                                        <MenuItem value={m.substring(0, m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
+                                            return c.toUpperCase();
+                                        }).replace(/\./g, " ")}>{m.substring(0,m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
+                                            // convert the first letter of each word to uppercase
+                                            return c.toUpperCase();
+                                        }).replace(/\./g, " ")}</MenuItem>
+                                    ))
+                                }
+                            </Select>
+                        </FormControl>
 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker sx={{mt: 2}} label="Due Date*" value={newDue} onChange={(e) => {

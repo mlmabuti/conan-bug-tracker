@@ -98,7 +98,7 @@ export const DescriptionModal = (props) => {
                 <Typography variant="h5" component="h2">
                     {props.ticket.ticketTitle}
                 </Typography>
-                    <EditTicketModal members={props.members} currentUser={props.currentUser} ticket={props.ticket} getTicketList={props.getTicketList} allTickets={props.allTickets} projectId={props.projectId} />
+                <EditTicketModal members={props.members} currentUser={props.currentUser} ticket={props.ticket} getTicketList={props.getTicketList} allTickets={props.allTickets} projectId={props.projectId} />
                 </Stack>
 
                 <Typography sx={{my: 2}}>
@@ -106,6 +106,9 @@ export const DescriptionModal = (props) => {
                 </Typography>
                 <hr/>
                 <Stack spacing={1}>
+                    <Typography>
+                        Ticket ID: {props.ticket.ticketId}
+                    </Typography>
                     <Typography>
                         {"Ticket Author: " + props.ticket.ticketAuthor}
                     </Typography>

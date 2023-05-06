@@ -29,7 +29,7 @@ export const Auth = (props) => {
                     </center>
 
                     <Stack spacing={1}>
-                        <Button variant="contained" onClick={signInWithGoogle}>Continue with
+                        <Button sx={{p:1.2}} variant="contained" onClick={signInWithGoogle}> <GoogleIcon sx={{mb:.2, mr:1}} /> Continue with
                             Google</Button>
                     </Stack>
 
