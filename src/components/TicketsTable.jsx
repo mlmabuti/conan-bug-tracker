@@ -76,7 +76,7 @@ export const TicketsTable = (props) => {
                     {props.showResolved ? resolvedTickets.reverse().map((ticket) =>
                             <TableRow key={ticket.ticketTitle}>
                             <TableCell>
-                                <DescriptionModal currentUser={props.currentUser} allTickets={props.tickets} ticket={ticket} project={props.project}
+                                <DescriptionModal members={props.members} currentUser={props.currentUser} allTickets={props.tickets} ticket={ticket} project={props.project}
                                                   getTicketList={props.getTicketList} projectId={props.projectId}/>
                             </TableCell>
                             <TableCell>
@@ -95,7 +95,7 @@ export const TicketsTable = (props) => {
                             return priorities.indexOf(b.priority) - priorities.indexOf(a.priority);
                         }).reverse().map((ticket) => <TableRow key={ticket.ticketTitle}>
                             <TableCell>
-                                <DescriptionModal onTicketStatusChange={props.onTicketStatusChange} currentUser={props.currentUser} project={props.project} allTickets={props.tickets} getTicketList={props.getTicketList}
+                                <DescriptionModal members={props.members} currentUser={props.currentUser} project={props.project} allTickets={props.tickets} getTicketList={props.getTicketList}
                                                   tickets={unresolvedTickets} ticket={ticket}
                                                   projectId={props.projectId}/>
                             </TableCell>

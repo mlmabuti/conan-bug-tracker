@@ -68,7 +68,7 @@ export const Project = (props) => {
                         <TextField sx={{ml: 2}} placeholder={"Search"} onChange={(c) => {
                             setSearch(c.target.value)
                         }} ></TextField>
-                        <NewTicketFormModal currentUser={auth.currentUser.displayName} getTicketList={getTicketList} projectRef={projectRef}/>
+                        <NewTicketFormModal members={props.project.members} currentUser={auth.currentUser.displayName} getTicketList={getTicketList} projectRef={projectRef}/>
                         <Button color="info" variant="contained"
                                 onClick={() => showResolved ? setShowResolved(false) : setShowResolved(true)}>
                             {showResolved ? 'Show Unresolved' : 'Show Resolved'}
@@ -87,7 +87,7 @@ export const Project = (props) => {
                 </Stack>
                 <LinearProgressWithLabel value={progress} getTicketList={getTicketList} />
                     { isLoading ? <CircularProgress/> :
-                        <TicketsTable currentUser={auth.currentUser.displayName} tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
+                        <TicketsTable members={props.project.members} currentUser={auth.currentUser.displayName} tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
                                    showResolved={showResolved} search={search}/> }
             </Paper>
         </Container>

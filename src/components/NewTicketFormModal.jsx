@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {FormControl, InputLabel, ListItem, ListItemText, MenuItem, Select, TextField} from "@mui/material";
 import {getDoc, updateDoc} from "firebase/firestore";
 import {auth} from "../firebase-config.js";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -54,10 +54,19 @@ export const NewTicketFormModal = (props) => {
 
             oldTickets = oldTickets.filter((e) => e.ticketTitle)
 
+            function getUsernameFromEmail(m) {
+                let username = m.substring(0, m.indexOf("@")); // get the part before the @ sign
+                username = username.toLowerCase().replace(/\b\w/g, function (c) {
+                    // convert the first letter of each word to uppercase
+                    return c.toUpperCase();
+                }).replace(/\./g, " "); // replace dots with spaces
+                return username;
+            }
+
             await updateDoc(props.projectRef, {
                 tickets: [...oldTickets, {
                     ticketTitle: newTicketTitle,
-                    ticketAuthor: auth.currentUser.displayName,
+                    ticketAuthor: getUsernameFromEmail(auth.currentUser.email),
                     priority: newPriority,
                     label: newLabel,
                     due: extractDate(newDue.toString()),
@@ -65,7 +74,7 @@ export const NewTicketFormModal = (props) => {
                     assignee: newAssignee,
                     status: "Unresolved",
                     lastModified: currentDate.toLocaleString(),
-                    lastModifiedBy: props.currentUser,
+                    lastModifiedBy: getUsernameFromEmail(auth.currentUser.email),
                 }]
             });
         } catch (e) {
@@ -98,19 +107,36 @@ export const NewTicketFormModal = (props) => {
                     </Typography>
                     <FormControl required fullWidth>
 
-
-                    <TextField fullWidth required label="Ticket Name" inputProps={{ maxLength: 64 }}
-                               placeholder="The maximum character limit is 64"
+                    <TextField fullWidth required label="Ticket Name" inputProps={{ maxLength: 32 }}
+                               placeholder="The maximum character limit is 32"
                                onChange={(e) => setNewTicketTitle(e.target.value)} sx={{mt: 1}}/>
                     <TextField fullWidth required multiline rows={3}
                                inputProps={{ maxLength: 256 }}
                                placeholder="The maximum character limit is 256"
                                onChange={(e) => setNewDescription(e.target.value)}
                                label="Description" sx={{mt: 2}}/>
-                    <TextField fullWidth required label="Assignee" inputProps={{ maxLength: 80 }}
-                               placeholder="E.g. Richard Hendricks, Bertram Gilfoyle, Jared Dunn"
-                               onChange={(e) => setNewAssignee(e.target.value)}
-                               sx={{mt: 2}}/>
+
+                    <FormControl fullWidth sx={{mt: 2}}>
+                        <InputLabel id="input-assignee-label">Assignee</InputLabel>
+                        <Select
+                            label="Assignee"
+                            labelId="input-assignee-label"
+                            id="input-assignee"
+                            value={newAssignee}
+                            onChange={(e) => setNewAssignee(e.target.value)}
+                        >
+                            {
+                            props.members.map((m) => (
+                                <MenuItem value={m.substring(0, m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
+                                    return c.toUpperCase();
+                                }).replace(/\./g, " ")}>{m.substring(0,m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
+                                    // convert the first letter of each word to uppercase
+                                    return c.toUpperCase();
+                                }).replace(/\./g, " ")}</MenuItem>
+                            ))
+                        }
+                        </Select>
+                    </FormControl>
 
                     <FormControl fullWidth sx={{mt: 2}}>
                         <InputLabel id="input-priority-label">Priority* </InputLabel>

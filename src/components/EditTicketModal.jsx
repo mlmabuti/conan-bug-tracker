@@ -5,9 +5,7 @@ import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {doc, updateDoc} from "firebase/firestore";
-import {db} from "../firebase-config.js";
-
-const currentDate = new Date();
+import {auth, db} from "../firebase-config.js";
 
 const style = {
     position: 'absolute',
@@ -42,6 +40,16 @@ export const EditTicketModal = (props) => {
 
     const updateTickets = (index) => {
         let updatedTickets = [];
+        const currentDate = new Date();
+
+        function getUsernameFromEmail(m) {
+            let username = m.substring(0, m.indexOf("@")); // get the part before the @ sign
+            username = username.toLowerCase().replace(/\b\w/g, function (c) {
+                // convert the first letter of each word to uppercase
+                return c.toUpperCase();
+            }).replace(/\./g, " "); // replace dots with spaces
+            return username;
+        }
 
         for (let i = 0; i < props.allTickets.length; i++) {
             if (i === index) {
@@ -52,7 +60,7 @@ export const EditTicketModal = (props) => {
                 props.allTickets[i].priority = newPriority;
                 props.allTickets[i].ticketTitle = newTicketTitle;
                 props.allTickets[i].lastModified = currentDate.toLocaleString();
-                props.allTickets[i].lastModifiedBy = props.currentUser;
+                props.allTickets[i].lastModifiedBy = getUsernameFromEmail(auth.currentUser.email)
             }
             updatedTickets.push(props.allTickets[i])
         }
@@ -98,8 +106,8 @@ export const EditTicketModal = (props) => {
                     Edit Ticket
                 </Typography>
                 <FormControl required fullWidth>
-                    <TextField fullWidth required label="Ticket Name" inputProps={{ maxLength: 64 }}
-                               placeholder="The maximum character limit is 64" value={newTicketTitle}
+                    <TextField fullWidth required label="Ticket Name" inputProps={{ maxLength: 32 }}
+                               placeholder="The maximum character limit is 32" value={newTicketTitle}
                                onChange={(e) => setNewTicketTitle(e.target.value) } sx={{mt: 1}}/>
                     <TextField fullWidth required multiline rows={3}
                                inputProps={{ maxLength: 256 }}
@@ -107,11 +115,28 @@ export const EditTicketModal = (props) => {
                                placeholder="The maximum character limit is 256"
                                onChange={(e) => setNewDescription(e.target.value) }
                                label="Description" sx={{mt: 2}}/>
-                    <TextField fullWidth required inputProps={{ maxLength: 80 }}
-                               placeholder="E.g. Richard Hendricks, Bertram Gilfoyle, Jared Dunn"
-                               value={newAssignee}
-                               onChange={(e) => setNewAssignee(e.target.value)}
-                               sx={{mt: 2}}/>
+                    <FormControl fullWidth sx={{mt: 2}}>
+                        <InputLabel id="input-assignee-label">Assignee</InputLabel>
+                        <Select
+                            label={newAssignee}
+                            labelId="input-assignee-label"
+                            id="input-assignee"
+                            value={newAssignee}
+                            onChange={(e) => setNewAssignee(e.target.value)}
+                        >
+                            {
+                                props.members.map((m) => (
+                                    <MenuItem value={m.substring(0, m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
+                                        return c.toUpperCase();
+                                    }).replace(/\./g, " ")}>{m.substring(0,m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
+                                        // convert the first letter of each word to uppercase
+                                        return c.toUpperCase();
+                                    }).replace(/\./g, " ")}</MenuItem>
+                                ))
+                            }
+
+                        </Select>
+                    </FormControl>
 
                     <FormControl fullWidth sx={{mt: 2}}>
                         <InputLabel id="input-priority-label">Priority* </InputLabel>

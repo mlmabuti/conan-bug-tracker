@@ -8,8 +8,6 @@ import {db} from '../firebase-config';
 import {doc, updateDoc} from "firebase/firestore";
 import {EditTicketModal} from './EditTicketModal.jsx'
 
-const currentDate = new Date();
-
 const style = {
     position: 'absolute',
     width: '40%',
@@ -58,6 +56,7 @@ export const DescriptionModal = (props) => {
 
     const updateTickets = (index, string) => {
         let updatedTickets = [];
+        const currentDate = new Date();
 
         for (let i = 0; i < props.allTickets.length; i++) {
             if (i === index) {
@@ -99,7 +98,7 @@ export const DescriptionModal = (props) => {
                 <Typography variant="h5" component="h2">
                     {props.ticket.ticketTitle}
                 </Typography>
-                    <EditTicketModal currentUser={props.currentUser} ticket={props.ticket} getTicketList={props.getTicketList} allTickets={props.allTickets} projectId={props.projectId} />
+                    <EditTicketModal members={props.members} currentUser={props.currentUser} ticket={props.ticket} getTicketList={props.getTicketList} allTickets={props.allTickets} projectId={props.projectId} />
                 </Stack>
 
                 <Typography sx={{my: 2}}>
