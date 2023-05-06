@@ -4,14 +4,12 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import {FormControl, InputLabel, ListItem, ListItemText, MenuItem, Select, TextField} from "@mui/material";
+import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {getDoc, updateDoc} from "firebase/firestore";
 import {auth} from "../firebase-config.js";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-const currentDate = new Date();
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 
 const style = {
     position: 'absolute',
@@ -51,6 +49,18 @@ export const NewTicketFormModal = (props) => {
         try {
             const docSnap = await getDoc(props.projectRef);
             let oldTickets = docSnap.data().tickets;
+            let isDuplicateTitle = false;
+
+            oldTickets.map((t) => {
+                if (t.ticketTitle === newTicketTitle) {
+                    isDuplicateTitle = true;
+                }
+            })
+
+            if (isDuplicateTitle) {
+                console.log("duplicate title")
+                return
+            }
 
             oldTickets = oldTickets.filter((e) => e.ticketTitle)
 
@@ -61,6 +71,13 @@ export const NewTicketFormModal = (props) => {
                     return c.toUpperCase();
                 }).replace(/\./g, " "); // replace dots with spaces
                 return username;
+            }
+
+            const currentDate = new Date();
+
+            function generateTicketId() {
+                let random = Math.floor(Math.random() * 1000);
+                return currentDate.getTime().toString() + random.toString();
             }
 
             await updateDoc(props.projectRef, {
@@ -75,7 +92,7 @@ export const NewTicketFormModal = (props) => {
                     status: "Unresolved",
                     lastModified: currentDate.toLocaleString(),
                     lastModifiedBy: getUsernameFromEmail(auth.currentUser.email),
-                    ticketId: oldTickets.length+1,
+                    ticketId: generateTicketId(),
                 }]
             });
         } catch (e) {
