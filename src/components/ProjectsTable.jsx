@@ -9,7 +9,7 @@ export const ProjectsTable = (props) => {
                 <TableRow>
                     <TableCell>
                         <Typography variant="h6" sx={{px: 1}}>
-                            Title
+                            Project Title
                         </Typography>
                     </TableCell>
                     <TableCell>

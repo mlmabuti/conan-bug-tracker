@@ -108,14 +108,14 @@ export const DescriptionModal = (props) => {
                 </Typography>
                 <hr/>
                 <Stack spacing={1}>
+                    <Typography color={"yellow"}>
+                        {"Due: " + props.ticket.due}
+                    </Typography>
                     <Typography>
                         Ticket ID: {props.ticket.ticketId}
                     </Typography>
                     <Typography>
                         {"Ticket Author: " + props.ticket.ticketAuthor}
-                    </Typography>
-                    <Typography>
-                        {"Last modified by: " + props.ticket.lastModifiedBy}
                     </Typography>
                     <Typography>
                         {"Assignee: " + props.ticket.assignee}
@@ -129,11 +129,11 @@ export const DescriptionModal = (props) => {
                     <Typography>
                         {"Status: " + props.ticket.status}
                     </Typography>
+                    <Typography>
+                        {"Last modified by: " + props.ticket.lastModifiedBy}
+                    </Typography>
 
                     {props.ticket.status !== 'Resolved' ? <>
-                            <Typography>
-                                {"Due: " + props.ticket.due}
-                            </Typography>
                             <Button variant={toggleMarkAsResolved} onClick={() => markTicketAsResolved(getTicketIndex())}
                                     color="success" sx={{mt: 2}}>
                                 Mark as resolved

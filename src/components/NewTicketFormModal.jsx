@@ -57,8 +57,7 @@ export const NewTicketFormModal = (props) => {
                 }
             })
 
-            if (isDuplicateTitle) {
-                console.log("duplicate title")
+            if (isDuplicateTitle || !newAssignee || !newDue || !newLabel || !newPriority || !newTicketTitle) {
                 return
             }
 

@@ -65,7 +65,7 @@ export const Project = (props) => {
                     <Stack
                         direction="row"
                         spacing={2}>
-                        <TextField sx={{ml: 2}} placeholder={"Search"} onChange={(c) => {
+                        <TextField sx={{ml: 2, width:300}} placeholder={"Search"} onChange={(c) => {
                             setSearch(c.target.value)
                         }}></TextField>
                         <NewTicketFormModal members={props.project.members} currentUser={auth.currentUser.displayName}

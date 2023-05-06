@@ -20,6 +20,7 @@ const style = {
 };
 
 export const EditTicketModal = (props) => {
+    const oldTickets = props.allTickets;
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -70,6 +71,10 @@ export const EditTicketModal = (props) => {
     const onSubmitTicket = async () => {
         if (newTicketTitle === "") {
             handleClose();
+            return
+        }
+
+        if (!newAssignee || !newDue || !newLabel || !newPriority || !newTicketTitle) {
             return
         }
 

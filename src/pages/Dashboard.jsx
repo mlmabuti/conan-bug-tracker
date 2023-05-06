@@ -1,4 +1,4 @@
-import {Button, Box, Card, CircularProgress, Container, Stack, Typography} from "@mui/material";
+import {Button, Box, Card, CircularProgress, Container, Stack, Typography, TextField} from "@mui/material";
 import {ProjectsTable} from "../components/ProjectsTable.jsx";
 import {Project} from "./Project.jsx";
 import {useEffect, useState} from "react";
@@ -43,7 +43,7 @@ export const Dashboard = () => {
                            sx={{mb: 3}}
                     >
                         <Stack direction="row" alignItems="center" spacing={2}>
-                            <Typography variant="h4">Projects | </Typography>
+                            <Typography variant="h4"> Your Projects | </Typography>
                             <Typography
                                 variant="h6">{`Logged in as ${auth.currentUser.displayName.substring(0, auth.currentUser.displayName.indexOf(' '))}`}</Typography>
                         </Stack>
