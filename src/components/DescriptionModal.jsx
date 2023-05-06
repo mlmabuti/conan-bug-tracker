@@ -95,10 +95,12 @@ export const DescriptionModal = (props) => {
             <Box sx={style}>
                 <Stack direction="row" spacing={1}>
 
-                <Typography variant="h5" component="h2">
-                    {props.ticket.ticketTitle}
-                </Typography>
-                <EditTicketModal members={props.members} currentUser={props.currentUser} ticket={props.ticket} getTicketList={props.getTicketList} allTickets={props.allTickets} projectId={props.projectId} />
+                    <Typography variant="h5" component="h2">
+                        {props.ticket.ticketTitle}
+                    </Typography>
+                    <EditTicketModal members={props.members} currentUser={props.currentUser} ticket={props.ticket}
+                                     getTicketList={props.getTicketList} allTickets={props.allTickets}
+                                     projectId={props.projectId}/>
                 </Stack>
 
                 <Typography sx={{my: 2}}>
@@ -129,32 +131,32 @@ export const DescriptionModal = (props) => {
                     </Typography>
 
                     {props.ticket.status !== 'Resolved' ? <>
-                        <Typography>
-                            {"Due: " + props.ticket.due}
-                        </Typography>
-                        <Button variant={toggleMarkAsResolved} onClick={() => markTicketAsResolved(getTicketIndex())}
-                                color="success" sx={{mt: 2}}>
-                            Mark as resolved
-                        </Button>
-                        <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
-                                color="error"
-                                sx={{mt: 2}}>
-                            Delete Ticket
-                        </Button>
-                    </>
+                            <Typography>
+                                {"Due: " + props.ticket.due}
+                            </Typography>
+                            <Button variant={toggleMarkAsResolved} onClick={() => markTicketAsResolved(getTicketIndex())}
+                                    color="success" sx={{mt: 2}}>
+                                Mark as resolved
+                            </Button>
+                            <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
+                                    color="error"
+                                    sx={{mt: 2}}>
+                                Delete Ticket
+                            </Button>
+                        </>
                         :
                         <>
-                        <Button variant={toggleMarkAsResolved}
-                                onClick={() => markTicketAsUnresolved(getTicketIndex())}
-                                color="warning" sx={{mt: 2}}>
-                            Mark as Unresolved
-                        </Button>
-                        <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
-                                color="error"
-                                sx={{mt: 2}}>
-                            Delete Ticket
-                        </Button>
-                    </>}
+                            <Button variant={toggleMarkAsResolved}
+                                    onClick={() => markTicketAsUnresolved(getTicketIndex())}
+                                    color="warning" sx={{mt: 2}}>
+                                Mark as Unresolved
+                            </Button>
+                            <Button variant={toggleDeleteTicket} onClick={() => deleteTicket(getTicketIndex())}
+                                    color="error"
+                                    sx={{mt: 2}}>
+                                Delete Ticket
+                            </Button>
+                        </>}
                 </Stack>
             </Box>
         </Modal>

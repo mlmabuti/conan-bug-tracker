@@ -19,7 +19,7 @@ export const MembersPopover = (props) => {
     };
 
     useEffect(() => {
-        setToggleEditMembers(auth.currentUser.uid === props.project.userId ? "outlined" : "disabled" )
+        setToggleEditMembers(auth.currentUser.uid === props.project.userId ? "outlined" : "disabled")
         getMembersList()
     }, [])
 
@@ -37,31 +37,32 @@ export const MembersPopover = (props) => {
     const id = open ? 'simple-popover' : undefined;
 
     return (<>
-            <Button aria-describedby={id} onClick={handleClick}>
-                <PeopleAlt/>
-            </Button>
-            <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom', horizontal: 'left',
-                }}
-            >
-                    <List>
-                        {
-                            membersList.map((e) => (
-                                <ListItem key={e}>
-                                <ListItemText primary={e}/>
-                                </ListItem>
-                            ))
-                        }
-
-                        <ListItem>
-                            <EditMembersModal toggleEditMembers={toggleEditMembers} projectRef={props.projectRef} getMembersList={getMembersList} members={membersList}/>
+        <Button aria-describedby={id} onClick={handleClick}>
+            <PeopleAlt/>
+        </Button>
+        <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+                vertical: 'bottom', horizontal: 'left',
+            }}
+        >
+            <List>
+                {
+                    membersList.map((e) => (
+                        <ListItem key={e}>
+                            <ListItemText primary={e}/>
                         </ListItem>
-                    </List>
-            </Popover>
-        </>)
+                    ))
+                }
+
+                <ListItem>
+                    <EditMembersModal toggleEditMembers={toggleEditMembers} projectRef={props.projectRef}
+                                      getMembersList={getMembersList} members={membersList}/>
+                </ListItem>
+            </List>
+        </Popover>
+    </>)
 }

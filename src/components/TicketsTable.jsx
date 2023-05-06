@@ -40,76 +40,90 @@ export const TicketsTable = (props) => {
     }
 
     return (<TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            {
-                                props.showResolved ?
-                            <Typography variant="h6" sx={{px: 1}}>
-                                Resolved Tickets
-                            </Typography> :
-                            <Typography variant="h6" sx={{px: 1}}>
-                                Unresolved Tickets
-                            </Typography>
-                            }
-                        </TableCell>
-                        <TableCell>
-                            <Typography variant="h6">
-                                Priority
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography variant="h6">
-                                Assignee
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography variant="h6">
-                                Last Modified
-                            </Typography>
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
+        <Table>
+            <TableHead>
+                <TableRow>
+                    <TableCell>
+                        {
+                            props.showResolved ?
+                                <Typography variant="h6" sx={{px: 1}}>
+                                    Resolved Tickets ({resolvedTickets.length})
+                                </Typography> :
+                                <Typography variant="h6" sx={{px: 1}}>
+                                    Unresolved Tickets ({unresolvedTickets.length})
+                                </Typography>
+                        }
+                    </TableCell>
+                    <TableCell>
+                        <Typography variant="h6">
+                            Priority
+                        </Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Typography variant="h6">
+                            Label
+                        </Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Typography variant="h6">
+                            Assignee
+                        </Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Typography variant="h6">
+                            Last Modified
+                        </Typography>
+                    </TableCell>
+                </TableRow>
+            </TableHead>
 
-                <TableBody>
-                    {props.showResolved ? resolvedTickets.reverse().map((ticket) =>
-                            <TableRow key={ticket.ticketTitle}>
+            <TableBody>
+                {props.showResolved ? resolvedTickets.reverse().map((ticket) =>
+                        <TableRow key={ticket.ticketTitle}>
                             <TableCell>
-                                <DescriptionModal members={props.members} currentUser={props.currentUser} allTickets={props.tickets} ticket={ticket} project={props.project}
+                                <DescriptionModal members={props.members} currentUser={props.currentUser}
+                                                  allTickets={props.tickets} ticket={ticket} project={props.project}
                                                   getTicketList={props.getTicketList} projectId={props.projectId}/>
                             </TableCell>
                             <TableCell>
                                 <Typography>{ticket.priority}</Typography>
                             </TableCell>
                             <TableCell>
-                                <Typography>{ticket.assignee}</Typography>
+                                <Typography>{!ticket.label ? "n/a" : ticket.label}</Typography>
                             </TableCell>
                             <TableCell>
-                                <Typography>{ticket.lastModified}</Typography>
+                                <Typography>{!ticket.assignee ? "n/a" : ticket.assignee}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography>{!ticket.lastModified ? "n/a" : ticket.lastModified}</Typography>
                             </TableCell>
                         </TableRow>
-                        ) :
-                        unresolvedTickets.sort((a, b) => {
-                            const priorities = ['Very High', 'High', 'Medium', 'Low'];
-                            return priorities.indexOf(b.priority) - priorities.indexOf(a.priority);
-                        }).reverse().map((ticket) => <TableRow key={ticket.ticketTitle}>
-                            <TableCell>
-                                <DescriptionModal members={props.members} currentUser={props.currentUser} project={props.project} allTickets={props.tickets} getTicketList={props.getTicketList}
-                                                  tickets={unresolvedTickets} ticket={ticket}
-                                                  projectId={props.projectId}/>
-                            </TableCell>
-                            <TableCell>
-                                <Typography>{ticket.priority}</Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography>{ticket.assignee}</Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography>{ticket.lastModified}</Typography>
-                            </TableCell>
-                        </TableRow>)}
-                </TableBody>
-            </Table>
-        </TableContainer>)
+                    ) :
+                    unresolvedTickets.sort((a, b) => {
+                        const priorities = ['Very High', 'High', 'Medium', 'Low'];
+                        return priorities.indexOf(b.priority) - priorities.indexOf(a.priority);
+                    }).reverse().map((ticket) => <TableRow key={ticket.ticketTitle}>
+                        <TableCell>
+                            <DescriptionModal members={props.members} currentUser={props.currentUser}
+                                              project={props.project} allTickets={props.tickets}
+                                              getTicketList={props.getTicketList}
+                                              tickets={unresolvedTickets} ticket={ticket}
+                                              projectId={props.projectId}/>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>{!ticket.priority ? "n/a" : ticket.priority}</Typography>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>{!ticket.label ? "n/a" : ticket.label}</Typography>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>{!ticket.assignee ? "n/a" : ticket.assignee}</Typography>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>{!ticket.lastModified ? "n/a" : ticket.lastModified}</Typography>
+                        </TableCell>
+                    </TableRow>)}
+            </TableBody>
+        </Table>
+    </TableContainer>)
 }

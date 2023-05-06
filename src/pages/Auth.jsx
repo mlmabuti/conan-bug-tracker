@@ -19,21 +19,24 @@ export const Auth = (props) => {
     }
 
     return (<Container maxWidth="xs">
-            <Paper sx={{p: 6, mt: "25%"}} elevation={2}>
-		    <Stack spacing={2}>
-                    <Typography variant="h4" alignSelf="center">Sign in</Typography>
-                    <center>
-                        <Typography variant="body" sx={{mb: "12px"}} alignSelf="center">Welcome to Conan, this app aims to introduce bug tracking to students in the CICS. <br/> <br/>
-                            It is currently under development as part of a research study. As such, we welcome your feedback and suggestions to help us improve the app.
-                        </Typography>
-                    </center>
+        <Paper sx={{p: 6, mt: "25%"}} elevation={2}>
+            <Stack spacing={2}>
+                <Typography variant="h4" alignSelf="center">Sign in</Typography>
+                <center>
+                    <Typography variant="body" sx={{mb: "12px"}} alignSelf="center">Welcome to Conan, this app aims to
+                        introduce bug tracking to students in the CICS. <br/> <br/>
+                        It is currently under development as part of a research study. As such, we welcome your feedback
+                        and suggestions to help us improve the app.
+                    </Typography>
+                </center>
 
-                    <Stack spacing={1}>
-                        <Button sx={{p:1.2}} variant="contained" onClick={signInWithGoogle}> <GoogleIcon sx={{mb:.2, mr:1}} /> Continue with
-                            Google</Button>
-                    </Stack>
-
+                <Stack spacing={1}>
+                    <Button sx={{p: 1.2}} variant="contained" onClick={signInWithGoogle}> <GoogleIcon
+                        sx={{mb: .2, mr: 1}}/> Continue with
+                        Google</Button>
                 </Stack>
-            </Paper>
-        </Container>)
+
+            </Stack>
+        </Paper>
+    </Container>)
 }

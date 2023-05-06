@@ -37,7 +37,7 @@ export const NewTicketFormModal = (props) => {
 
     const extractDate = (dateTime) => {
         const date = dateTime.split(" ");
-        return date[2] + " " + date[1] + ", " + date[3] + ". " + date[0].substring(0,3) + ".";
+        return date[2] + " " + date[1] + ", " + date[3] + ". " + date[0].substring(0, 3) + ".";
     }
 
     const onSubmitTicket = async () => {
@@ -110,51 +110,51 @@ export const NewTicketFormModal = (props) => {
     }
 
     return (<>
-            <Button onClick={handleOpen} variant="outlined" color="primary">
-                <AddCircleIcon/>
-            </Button>
+        <Button onClick={handleOpen} variant="outlined" color="primary">
+            <AddCircleIcon/>
+        </Button>
 
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h5" component="h2" sx={{my: 2}}>
-                        Create New Ticket
-                    </Typography>
-                    <FormControl required fullWidth>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+        >
+            <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h5" component="h2" sx={{my: 2}}>
+                    Create New Ticket
+                </Typography>
+                <FormControl required fullWidth>
 
-                    <TextField fullWidth required label="Ticket Name" inputProps={{ maxLength: 32 }}
-                               placeholder="The maximum character limit is 32"
+                    <TextField fullWidth required label="Ticket Name (Must not be a duplicate)"
+                               inputProps={{maxLength: 42}}
+                               placeholder="The maximum character limit is 42"
                                onChange={(e) => setNewTicketTitle(e.target.value)} sx={{mt: 1}}/>
-                    <TextField fullWidth required multiline rows={3}
-                               inputProps={{ maxLength: 256 }}
+                    <TextField fullWidth multiline rows={3}
+                               inputProps={{maxLength: 256}}
                                placeholder="The maximum character limit is 256"
                                onChange={(e) => setNewDescription(e.target.value)}
                                label="Description" sx={{mt: 2}}/>
 
-                        <FormControl fullWidth sx={{mt: 2}}>
-                            <InputLabel id="input-label-label">Label </InputLabel>
-                            <Select
-                                label="Label"
-                                labelId="input-label-label"
-                                id="input-label"
-                                value={newLabel}
-                                onChange={(e) => setNewLabel(e.target.value)}
-                            >
-                                <MenuItem value={"Issue"}>Issue</MenuItem>
-                                <MenuItem value={"Enhancement"}>Enhancement</MenuItem>
-                                <MenuItem value={"Task"}>Task</MenuItem>
-                                <MenuItem value={"Documentation"}>Documentation</MenuItem>
-                                <MenuItem value={"Optional"}>Optional</MenuItem>
-                                <MenuItem value={"Others"}>Others</MenuItem>
-                            </Select>
-                        </FormControl>
-
+                    <FormControl fullWidth sx={{mt: 2}}>
+                        <InputLabel id="input-label-label">Label </InputLabel>
+                        <Select
+                            label="Label"
+                            labelId="input-label-label"
+                            id="input-label"
+                            value={newLabel}
+                            onChange={(e) => setNewLabel(e.target.value)}
+                        >
+                            <MenuItem value={"Issue"}>Issue</MenuItem>
+                            <MenuItem value={"Enhancement"}>Enhancement</MenuItem>
+                            <MenuItem value={"Task"}>Task</MenuItem>
+                            <MenuItem value={"Documentation"}>Documentation</MenuItem>
+                            <MenuItem value={"Optional"}>Optional</MenuItem>
+                            <MenuItem value={"Others"}>Others</MenuItem>
+                        </Select>
+                    </FormControl>
 
                     <FormControl fullWidth sx={{mt: 2}}>
-                        <InputLabel id="input-priority-label">Priority* </InputLabel>
+                        <InputLabel id="input-priority-label">Priority</InputLabel>
                         <Select
                             label="Priority"
                             labelId="input-priority-label"
@@ -169,27 +169,28 @@ export const NewTicketFormModal = (props) => {
                         </Select>
                     </FormControl>
 
-                        <FormControl fullWidth sx={{mt: 2}}>
-                            <InputLabel id="input-assignee-label">Assignee</InputLabel>
-                            <Select
-                                label="Assignee"
-                                labelId="input-assignee-label"
-                                id="input-assignee"
-                                value={newAssignee}
-                                onChange={(e) => setNewAssignee(e.target.value)}
-                            >
-                                {
-                                    props.members.map((m) => (
-                                        <MenuItem value={m.substring(0, m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
-                                            return c.toUpperCase();
-                                        }).replace(/\./g, " ")}>{m.substring(0,m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
-                                            // convert the first letter of each word to uppercase
-                                            return c.toUpperCase();
-                                        }).replace(/\./g, " ")}</MenuItem>
-                                    ))
-                                }
-                            </Select>
-                        </FormControl>
+                    <FormControl fullWidth sx={{mt: 2}}>
+                        <InputLabel id="input-assignee-label">Assignee</InputLabel>
+                        <Select
+                            label="Assignee"
+                            labelId="input-assignee-label"
+                            id="input-assignee"
+                            value={newAssignee}
+                            onChange={(e) => setNewAssignee(e.target.value)}
+                        >
+                            {
+                                props.members.map((m) => (
+                                    <MenuItem key={m.length + 1}
+                                              value={m.substring(0, m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
+                                                  return c.toUpperCase();
+                                              }).replace(/\./g, " ")}>{m.substring(0, m.indexOf("@")).toLowerCase().replace(/\b\w/g, function (c) {
+                                        // convert the first letter of each word to uppercase
+                                        return c.toUpperCase();
+                                    }).replace(/\./g, " ")}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </FormControl>
 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker sx={{mt: 2}} label="Due Date*" value={newDue} onChange={(e) => {
@@ -202,8 +203,8 @@ export const NewTicketFormModal = (props) => {
                             onClick={onSubmitTicket}>
                         Submit
                     </Button>
-                    </FormControl>
-                </Box>
-            </Modal>
-        </>);
+                </FormControl>
+            </Box>
+        </Modal>
+    </>);
 }

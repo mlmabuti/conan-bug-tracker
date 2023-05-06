@@ -27,7 +27,7 @@ export const NewProjectFormModal = (props) => {
 
     // new project
     const [newProject, setNewProject] = useState("");
-    const [membersEmail, setMembersEmail] = useState(["","",""]);
+    const [membersEmail, setMembersEmail] = useState(["", "", ""]);
 
     const onSubmitProject = async () => {
         if (newProject === "") {
@@ -36,9 +36,12 @@ export const NewProjectFormModal = (props) => {
         }
         try {
             await addDoc(props.collectionRef, {
-                title: newProject, author: auth.currentUser.displayName, members: [...membersEmail.filter((e) => e !== ""),
+                title: newProject,
+                author: auth.currentUser.displayName,
+                members: [...membersEmail.filter((e) => e !== ""),
                     auth.currentUser.email]
-               , tickets: [{
+                ,
+                tickets: [{
                     ticketTitle: "",
                     ticketAuthor: "",
                     priority: "",
@@ -58,45 +61,45 @@ export const NewProjectFormModal = (props) => {
     }
 
     return (<div>
-            <Button onClick={handleOpen} variant="contained">
-                <AddCircleIcon/>
-            </Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h5" component="h2">
-                        Create New Project
-                    </Typography>
-                    <TextField required fullWidth label="Project Title" inputProps={{ maxLength: 32 }}
-                               placeholder="The maximum character limit is 32" onChange={(e) => {
-                        setNewProject(e.target.value)
-                    }} sx={{my: 2}}/>
-                   <Typography variant="h6" sx={{mb: 2}}>Exact email of each member</Typography>
+        <Button onClick={handleOpen} variant="contained">
+            <AddCircleIcon/>
+        </Button>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+        >
+            <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h5" component="h2">
+                    Create New Project
+                </Typography>
+                <TextField required fullWidth label="Project Title" inputProps={{maxLength: 48}}
+                           placeholder="The maximum character limit is 48" onChange={(e) => {
+                    setNewProject(e.target.value)
+                }} sx={{my: 2}}/>
+                <Typography variant="h6" sx={{mb: 2}}>Exact email of each member</Typography>
 
-                    {
-                        membersEmail.map((email, i) => (
-                            <TextField
-                                sx ={{mb: 2}}
-                                key={i}
-                                fullWidth
-                                label={`Email ${i+1} (Optional)`}
-                                placeholder={`member${i+1}@neu.edu.ph`}
-                                value={email}
-                                onChange={(e) => {
-                                    const newMembersEmail = [...membersEmail];
-                                    newMembersEmail[i] = e.target.value;
-                                    setMembersEmail(newMembersEmail);
-                                }}
-                            />
-                        ))
-                    }
-                    <Button sx={{mt:1}} fullWidth variant="contained" color="primary" onClick={onSubmitProject}>
-                        Submit
-                    </Button>
-                </Box>
-            </Modal>
-        </div>);
+                {
+                    membersEmail.map((email, i) => (
+                        <TextField
+                            sx={{mb: 2}}
+                            key={i}
+                            fullWidth
+                            label={`Email ${i + 1} (Optional)`}
+                            placeholder={`member${i + 1}@neu.edu.ph`}
+                            value={email}
+                            onChange={(e) => {
+                                const newMembersEmail = [...membersEmail];
+                                newMembersEmail[i] = e.target.value;
+                                setMembersEmail(newMembersEmail);
+                            }}
+                        />
+                    ))
+                }
+                <Button sx={{mt: 1}} fullWidth variant="contained" color="primary" onClick={onSubmitProject}>
+                    Submit
+                </Button>
+            </Box>
+        </Modal>
+    </div>);
 }

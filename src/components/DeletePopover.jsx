@@ -21,26 +21,27 @@ export const DeletePopover = (props) => {
             <DeleteIcon/>
         </Button>
 
-            <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom', horizontal: 'left',
-                }}
-            >
-                <Box textAlign="center" sx={{p:1}}>
+        <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+                vertical: 'bottom', horizontal: 'left',
+            }}
+        >
+            <Box textAlign="center" sx={{p: 1}}>
 
                 <Typography sx={{m: 1}}>Are you sure you want to delete this project?</Typography>
-                <Button variant="contained" sx={{mx:.5}} color="error" onClick={() => props.deleteProject(props.project.id)}>
+                <Button variant="contained" sx={{mx: .5}} color="error"
+                        onClick={() => props.deleteProject(props.project.id)}>
                     Yes
                 </Button>
-                <Button variant="contained" sx={{mx:.5}} onClick={handleClose}>
+                <Button variant="contained" sx={{mx: .5}} onClick={handleClose}>
                     No
                 </Button>
-                </Box>
+            </Box>
 
-            </Popover>
-        </>)
+        </Popover>
+    </>)
 }

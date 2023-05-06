@@ -31,7 +31,7 @@ export const EditMembersModal = (props) => {
             props.getMembersList()
             const docSnap = await getDoc(props.projectRef);
             const members = docSnap.data().members;
-            if (members.length > 3){
+            if (members.length > 3) {
                 setMembersEmail([...members.filter((e) => e !== auth.currentUser.email)]);
             } else {
                 setMembersEmail([...members.filter((e) => e !== auth.currentUser.email), ""]);
@@ -66,12 +66,12 @@ export const EditMembersModal = (props) => {
                 {
                     membersEmail.map((email, i) => (
                         <TextField
-                            sx ={{mb: 2}}
+                            sx={{mb: 2}}
                             key={i}
                             fullWidth
                             value={email}
-                            label={`Email ${i+1}`}
-                            placeholder={`member${i+1}@neu.edu.ph`}
+                            label={`Email ${i + 1}`}
+                            placeholder={`member${i + 1}@neu.edu.ph`}
                             onChange={(e) => {
                                 const newMembersEmail = [...membersEmail];
                                 newMembersEmail[i] = e.target.value;
@@ -80,7 +80,7 @@ export const EditMembersModal = (props) => {
                         />
                     ))
                 }
-                <Button sx={{mt:1}} fullWidth variant="contained" color="primary" onClick={onSubmitMembers}>
+                <Button sx={{mt: 1}} fullWidth variant="contained" color="primary" onClick={onSubmitMembers}>
                     Submit
                 </Button>
             </Box>

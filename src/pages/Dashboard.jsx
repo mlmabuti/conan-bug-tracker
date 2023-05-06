@@ -33,35 +33,37 @@ export const Dashboard = () => {
     }, []);
 
     return (<>
-            {chosenProject ? <Project project={chosenProject} getProjectList={getProjectList} chooseProject={chooseProject}/> :
-                <Container maxWidth="lg">
-                    <Card sx={{p: 4, m: 6}} elevation={2}>
-                        <Stack direction="row"
-                               alignItems="center"
-                               justifyContent="space-between"
-                               sx={{mb: 3}}
-                        >
-                            <Stack direction="row" alignItems="center" spacing={2}>
-                                <Typography variant="h4">Projects | </Typography>
-                                <Typography variant="h6">{`Logged in as ${auth.currentUser.displayName.substring(0, auth.currentUser.displayName.indexOf(' '))}`}</Typography>
-                            </Stack>
-                            <Stack direction="row">
-
-                                <NewProjectFormModal collectionRef={projectCollectionRef}
-                                                     getProjectList={getProjectList}/>
-
-                                <Button sx={{mx:1}} onClick={getProjectList} variant="outlined">
-                                    <RefreshIcon/>
-                                </Button>
-
-                            </Stack>
+        {chosenProject ?
+            <Project project={chosenProject} getProjectList={getProjectList} chooseProject={chooseProject}/> :
+            <Container maxWidth="lg">
+                <Card sx={{p: 4, m: 6}} elevation={2}>
+                    <Stack direction="row"
+                           alignItems="center"
+                           justifyContent="space-between"
+                           sx={{mb: 3}}
+                    >
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                            <Typography variant="h4">Projects | </Typography>
+                            <Typography
+                                variant="h6">{`Logged in as ${auth.currentUser.displayName.substring(0, auth.currentUser.displayName.indexOf(' '))}`}</Typography>
                         </Stack>
-                        {
-                            isLoading ?
-                            <CircularProgress /> :
-                        <ProjectsTable projects={projectList} chooseProject={chooseProject}/>
-                        }
-                    </Card>
-                </Container>}
-        </>)
+                        <Stack direction="row">
+
+                            <NewProjectFormModal collectionRef={projectCollectionRef}
+                                                 getProjectList={getProjectList}/>
+
+                            <Button sx={{mx: 1}} onClick={getProjectList} variant="outlined">
+                                <RefreshIcon/>
+                            </Button>
+
+                        </Stack>
+                    </Stack>
+                    {
+                        isLoading ?
+                            <CircularProgress/> :
+                            <ProjectsTable projects={projectList} chooseProject={chooseProject}/>
+                    }
+                </Card>
+            </Container>}
+    </>)
 }

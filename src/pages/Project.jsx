@@ -29,7 +29,7 @@ export const Project = (props) => {
             console.error(e);
         }
         const resolved = ticketList.filter((ticket) => ticket.status === "Resolved")
-        setProgress(resolved.length/ticketList.length*100);
+        setProgress(resolved.length / ticketList.length * 100);
         setIsLoading(false)
     };
 
@@ -58,25 +58,28 @@ export const Project = (props) => {
                     <Stack
                         direction="row"
                         spacing={0}>
-                    <Typography sx={{mt:1}} variant="h4">
-                        {props.project.title}
-                    </Typography>
+                        <Typography sx={{mt: 1}} variant="h4">
+                            {props.project.title}
+                        </Typography>
                     </Stack>
                     <Stack
                         direction="row"
                         spacing={2}>
                         <TextField sx={{ml: 2}} placeholder={"Search"} onChange={(c) => {
                             setSearch(c.target.value)
-                        }} ></TextField>
-                        <NewTicketFormModal members={props.project.members} currentUser={auth.currentUser.displayName} getTicketList={getTicketList} projectRef={projectRef}/>
+                        }}></TextField>
+                        <NewTicketFormModal members={props.project.members} currentUser={auth.currentUser.displayName}
+                                            getTicketList={getTicketList} projectRef={projectRef}/>
                         <Button color="info" variant="contained"
                                 onClick={() => showResolved ? setShowResolved(false) : setShowResolved(true)}>
                             {showResolved ? 'Show Unresolved' : 'Show Resolved'}
                         </Button>
                         <ButtonGroup size="small" variant="outlined">
-                            <DeletePopover toggleDisable={toggleDisable} deleteProject={deleteProject} project={props.project}/>
-                            <MembersPopover project={props.project} projectRef={projectRef} members={props.project.members}/>
-                            <Button onClick={getTicketList} >
+                            <DeletePopover toggleDisable={toggleDisable} deleteProject={deleteProject}
+                                           project={props.project}/>
+                            <MembersPopover project={props.project} projectRef={projectRef}
+                                            members={props.project.members}/>
+                            <Button onClick={getTicketList}>
                                 <RefreshIcon/>
                             </Button>
                             <Button onClick={() => props.chooseProject(null)}>
@@ -85,10 +88,12 @@ export const Project = (props) => {
                         </ButtonGroup>
                     </Stack>
                 </Stack>
-                <LinearProgressWithLabel value={progress} getTicketList={getTicketList} />
-                    { isLoading ? <CircularProgress/> :
-                        <TicketsTable members={props.project.members} currentUser={auth.currentUser.displayName} tickets={ticketList} getTicketList={getTicketList} project={props.project} projectId={props.project.id}
-                                   showResolved={showResolved} search={search}/> }
+                <LinearProgressWithLabel value={progress}/>
+                {isLoading ? <CircularProgress/> :
+                    <TicketsTable members={props.project.members} currentUser={auth.currentUser.displayName}
+                                  tickets={ticketList} getTicketList={getTicketList} project={props.project}
+                                  projectId={props.project.id}
+                                  showResolved={showResolved} search={search}/>}
             </Paper>
         </Container>
     </>)
